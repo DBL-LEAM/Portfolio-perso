@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#0B0B0C" />
+
+  <title>Maël — Développeur web freelance</title>
+  <meta name="description"
+    content="Maël, développeur web freelance. Je conçois des sites vitrines sur mesure, sobres et rapides, pour les entreprises et les indépendants." />
+  <meta name="author" content="Maël" />
+  <meta name="keywords"
+    content="développeur web freelance, création site vitrine, site internet entreprise, site sur mesure, intégration web" />
+  <link rel="canonical" href="https://mael.fr/" />
+
+  <!-- Open Graph / réseaux sociaux -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Maël — Développeur web freelance" />
+  <meta property="og:description"
+    content="Je conçois des sites qui donnent une vraie présence en ligne à votre entreprise." />
+  <meta property="og:url" content="https://mael.fr/" />
+  <meta property="og:image" content="https://mael.fr/img/og-image.jpg" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Maël — Développeur web freelance" />
+  <meta name="twitter:description"
+    content="Je conçois des sites qui donnent une vraie présence en ligne à votre entreprise." />
+  <meta name="twitter:image" content="https://mael.fr/img/og-image.jpg" />
+
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B0B0C'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23F4F1EA' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
+
+  <!-- Typographie : Playfair Display (titres) + Inter (texte) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+    rel="stylesheet" />
+
+  <!-- Styles : 4 fichiers, à charger dans cet ordre -->
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/sections.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+
+<body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+  <!-- ============================ NAV ============================ -->
+  <header class="nav" id="nav">
+    <div class="shell nav__inner">
+      <a class="nav__brand" href="#accueil">Maël<span>.</span></a>
+
+      <nav class="nav__links" id="nav-menu" aria-label="Navigation principale">
+        <a href="#parcours">Parcours</a>
+        <a href="#realisations">Réalisations</a>
+        <a href="#contact">Contact</a>
+        <a href="#contact" class="nav__cta link-arrow">Parlons de votre projet</a>
+      </nav>
+
+      <button class="nav__toggle" id="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false"
+        aria-controls="nav-menu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="contenu">
+
+    <!-- ============================ HERO ============================ -->
+    <section class="section section--ink hero" id="accueil">
+      <div class="shell hero__grid">
+        <div class="hero__head reveal">
+          <p class="kicker">Développeur web freelance</p>
+          <h1 class="hero__title">
+            Je crée des sites web qui donnent une vraie présence en ligne à votre entreprise.
+          </h1>
+        </div>
+
+        <div class="hero__body reveal">
+          <p class="hero__lead">
+            Des sites sur mesure, sobres et rapides, pour les entreprises et les indépendants.
+          </p>
+          <div class="hero__actions">
+            <a href="#realisations" class="btn">Voir mes réalisations</a>
+            <a href="#contact" class="link-arrow">Me contacter</a>
+          </div>
+        </div>
+
+        <figure class="hero__figure reveal">
+          <!-- Photo : img/mael.png. Idéalement, exportez une version .webp ou .jpg
+               optimisée (< 300 Ko) et mettez à jour le src + width/height ci-dessous. -->
+          <div class="frame">
+            <img src="img/mael.png" alt="Portrait de Maël, développeur web freelance" width="1024" height="1536"
+              fetchpriority="high" />
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============================ 01 · PARCOURS ============================ -->
+    <section class="section section--paper" id="parcours">
+      <div class="shell split">
+        <div class="split__aside reveal">
+          <p class="section__index"><span>01</span> — Parcours</p>
+          <h2 class="section__title">Un parcours <em>tourné vers le web</em>.</h2>
+          <p class="section__note">
+            Développeur passionné, je construis mon activité en indépendant autour d'une
+            idée simple : livrer des sites soignés, utiles et faits pour durer.
+          </p>
+        </div>
+
+        <div class="split__main">
+          <ol class="path">
+            <li class="path__row reveal">
+              <span class="path__label">Formation</span>
+              <div class="path__body">
+                <h3>Apprentissage du développement front-end</h3>
+                <p>Autoformation et pratique continue autour de HTML, CSS et JavaScript, et des fondamentaux de
+                  l'intégration web.</p>
+              </div>
+            </li>
+            <li class="path__row reveal">
+              <span class="path__label">Compétences</span>
+              <div class="path__body">
+                <h3>Intégration moderne et rigoureuse</h3>
+                <p>Structure sémantique, responsive, accessibilité et performance — les bases d'un site qui inspire
+                  confiance.</p>
+              </div>
+            </li>
+            <li class="path__row reveal">
+              <span class="path__label">Approche</span>
+              <div class="path__body">
+                <h3>Le détail au service de la lisibilité</h3>
+                <p>Un goût marqué pour les interfaces épurées, la typographie et les choix qui rendent un site clair et
+                  crédible.</p>
+              </div>
+            </li>
+            <li class="path__row reveal">
+              <span class="path__label">Freelance</span>
+              <div class="path__body">
+                <h3>Un interlocuteur unique, de l'idée à la mise en ligne</h3>
+                <p>J'accompagne entreprises et indépendants sur l'ensemble du projet, avec un échange direct à chaque
+                  étape.</p>
+              </div>
+            </li>
+          </ol>
+
+          <p class="stack reveal">
+            <span class="stack__label">Technologies</span>
+            HTML&nbsp;· CSS&nbsp;· JavaScript&nbsp;· Git&nbsp;· Figma&nbsp;· Performance&nbsp;· SEO&nbsp;· Accessibilité
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ 02 · RÉALISATIONS ============================ -->
+    <section class="section section--ink" id="realisations">
+      <div class="shell">
+        <header class="section__head reveal">
+          <p class="section__index"><span>02</span> — Réalisations</p>
+          <h2 class="section__title">Quelques projets conçus <em>et développés</em>.</h2>
+        </header>
+
+        <div class="cases">
+
+          <!-- Projet — dupliquez cet <article> pour ajouter une réalisation -->
+          <article class="case reveal">
+            <div class="case__media">
+              <!-- <img src="assets/projects/restaurant.jpg" alt="Aperçu du site Le Comptoir" width="1200" height="900" /> -->
+              <div class="case__placeholder"><span>Aperçu du projet</span></div>
+            </div>
+            <div class="case__info">
+              <p class="case__meta">Site vitrine · Restaurant · 2025</p>
+              <h3 class="case__title">Le Comptoir</h3>
+              <p class="case__desc">Menu, galerie et réservation en ligne pour un restaurant bistronomique.</p>
+              <p class="case__stack">HTML · CSS · JavaScript</p>
+              <a href="#" class="link-arrow">Voir le projet</a>
+            </div>
+          </article>
+
+          <article class="case reveal">
+            <div class="case__media">
+              <!-- <img src="assets/projects/artisan.jpg" alt="Aperçu du site Atelier Fàbregas" width="1200" height="900" /> -->
+              <div class="case__placeholder"><span>Aperçu du projet</span></div>
+            </div>
+            <div class="case__info">
+              <p class="case__meta">Site vitrine · Artisan · 2025</p>
+              <h3 class="case__title">Atelier Fàbregas</h3>
+              <p class="case__desc">Présentation des réalisations et demande de devis pour un menuisier.</p>
+              <p class="case__stack">HTML · CSS · JavaScript</p>
+              <a href="#" class="link-arrow">Voir le projet</a>
+            </div>
+          </article>
+
+          <article class="case reveal">
+            <div class="case__media">
+              <!-- <img src="assets/projects/coiffure.jpg" alt="Aperçu du site Studio Némo" width="1200" height="900" /> -->
+              <div class="case__placeholder"><span>Aperçu du projet</span></div>
+            </div>
+            <div class="case__info">
+              <p class="case__meta">Site vitrine · Coiffure · 2024</p>
+              <h3 class="case__title">Studio Némo</h3>
+              <p class="case__desc">Prise de rendez-vous en ligne et mise en avant des prestations d'un salon.</p>
+              <p class="case__stack">HTML · CSS · JavaScript</p>
+              <a href="#" class="link-arrow">Voir le projet</a>
+            </div>
+          </article>
+
+          <article class="case reveal">
+            <div class="case__media">
+              <!-- <img src="assets/projects/sport.jpg" alt="Aperçu du site Forge Athletic" width="1200" height="900" /> -->
+              <div class="case__placeholder"><span>Aperçu du projet</span></div>
+            </div>
+            <div class="case__info">
+              <p class="case__meta">Site vitrine · Salle de sport · 2024</p>
+              <h3 class="case__title">Forge Athletic</h3>
+              <p class="case__desc">Cours, tarifs et planning hebdomadaire présentés de façon claire et dynamique.</p>
+              <p class="case__stack">HTML · CSS · JavaScript</p>
+              <a href="#" class="link-arrow">Voir le projet</a>
+            </div>
+          </article>
+
+          <article class="case reveal">
+            <div class="case__media">
+              <!-- <img src="assets/projects/ecommerce.jpg" alt="Aperçu de la boutique Maison Vert" width="1200" height="900" /> -->
+              <div class="case__placeholder"><span>Aperçu du projet</span></div>
+            </div>
+            <div class="case__info">
+              <p class="case__meta">Boutique en ligne · E-commerce · 2024</p>
+              <h3 class="case__title">Maison Vert</h3>
+              <p class="case__desc">Catalogue, fiches produit et panier pour une marque de plantes d'intérieur.</p>
+              <p class="case__stack">HTML · CSS · JavaScript</p>
+              <a href="#" class="link-arrow">Voir le projet</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ APPROCHE ============================ -->
+    <section class="section section--paper approach">
+      <div class="shell">
+        <p class="approach__lead reveal">Une méthode simple, <em>un seul interlocuteur</em>.</p>
+        <div class="approach__steps">
+          <div class="approach__step reveal">
+            <span>01</span>
+            <h3>Écoute</h3>
+            <p>On cadre ensemble votre activité, vos objectifs et le contenu du site.</p>
+          </div>
+          <div class="approach__step reveal">
+            <span>02</span>
+            <h3>Conception</h3>
+            <p>Je conçois et développe le site étape par étape, avec des points réguliers.</p>
+          </div>
+          <div class="approach__step reveal">
+            <span>03</span>
+            <h3>Mise en ligne</h3>
+            <p>Mise en production, prise en main et suivi une fois le site publié.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ 03 · CONTACT ============================ -->
+    <section class="section section--ink" id="contact">
+      <div class="shell split">
+        <div class="split__aside reveal">
+          <p class="section__index"><span>03</span> — Contact</p>
+          <h2 class="section__title">Vous avez <em>un projet</em> ?</h2>
+          <p class="section__note">
+            Parlons-en et voyons ensemble comment créer un site qui correspond à votre activité.
+          </p>
+          <a href="mailto:contact@mael.fr" class="contact__mail">contact@mael.fr</a>
+          <p class="contact__links">
+            <a href="https://www.linkedin.com/" rel="noopener" target="_blank">LinkedIn</a>
+            <a href="https://github.com/" rel="noopener" target="_blank">GitHub</a>
+          </p>
+        </div>
+
+        <form class="split__main form" id="contact-form" novalidate>
+          <div class="field">
+            <label for="f-nom">Nom</label>
+            <input type="text" id="f-nom" name="nom" autocomplete="name" required />
+          </div>
+          <div class="field">
+            <label for="f-email">Email</label>
+            <input type="email" id="f-email" name="email" autocomplete="email" required />
+          </div>
+          <div class="field">
+            <label for="f-entreprise">Entreprise</label>
+            <input type="text" id="f-entreprise" name="entreprise" autocomplete="organization" />
+          </div>
+          <div class="field">
+            <label for="f-message">Message</label>
+            <textarea id="f-message" name="message" rows="4" required></textarea>
+          </div>
+          <button type="submit" class="btn btn--wide">Envoyer</button>
+          <p class="form__feedback" id="form-feedback" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================ FOOTER ============================ -->
+  <footer class="footer">
+    <div class="shell footer__inner">
+      <p class="footer__brand">Maël <span>— Développeur web freelance</span></p>
+      <nav class="footer__nav" aria-label="Navigation du pied de page">
+        <a href="#parcours">Parcours</a>
+        <a href="#realisations">Réalisations</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <p class="footer__copy">© <span id="year">2026</span> Maël</p>
+    </div>
+  </footer>
+
+  <!-- Scripts : 3 modules indépendants -->
+  <script src="js/navigation.js" defer></script>
+  <script src="js/reveal.js" defer></script>
+  <script src="js/contact.js" defer></script>
+</body>
+
+</html>

@@ -1,0 +1,131 @@
+/* =====================================================================
+   layout.css — Ossature
+   Conteneur, contextes de section (sombre / clair), navbar, footer,
+   disposition en deux colonnes. Charger APRÈS base.css.
+   ===================================================================== */
+
+/* --------------------------------------------------------------------- */
+/* Conteneur + contextes de section                                      */
+/* --------------------------------------------------------------------- */
+.shell {
+  width: 100%;
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section { padding-block: clamp(64px, 11vw, 128px); }
+
+.section--ink {
+  --fg: var(--ink-fg);
+  --muted: var(--ink-muted);
+  --rule: var(--ink-rule);
+  --accent: var(--accent-on-ink);
+  --btn-bg: var(--paper);
+  --btn-fg: var(--ink);
+  background: var(--ink);
+  color: var(--fg);
+}
+.section--paper {
+  --fg: var(--paper-fg);
+  --muted: var(--paper-muted);
+  --rule: var(--paper-rule);
+  --accent: var(--accent-on-paper);
+  --btn-bg: var(--ink);
+  --btn-fg: var(--paper);
+  background: var(--paper);
+  color: var(--fg);
+}
+
+/* --------------------------------------------------------------------- */
+/* Navbar                                                                */
+/* --------------------------------------------------------------------- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--ink);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
+}
+.nav.is-scrolled { border-bottom-color: var(--ink-rule); }
+
+.nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 74px;
+}
+
+.nav__brand {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+.nav__brand span { color: var(--accent-on-ink); }
+
+.nav__links { display: flex; align-items: center; gap: 38px; }
+.nav__links a:not(.nav__cta) {
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+  padding-bottom: 3px;
+  background: linear-gradient(currentColor, currentColor) left bottom / 0% 1px no-repeat;
+  transition: color 0.2s var(--ease), background-size 0.35s var(--ease);
+}
+.nav__links a:not(.nav__cta):hover { color: var(--ink-fg); background-size: 100% 1px; }
+.nav__cta { font-size: 0.9rem; color: var(--ink-fg); }
+
+.nav__toggle {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 1px solid var(--ink-rule);
+  cursor: pointer;
+}
+.nav__toggle span {
+  width: 20px; height: 1px;
+  background: var(--ink-fg);
+  transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
+}
+.nav.is-open .nav__toggle span:nth-child(1) { transform: translateY(3.5px) rotate(45deg); }
+.nav.is-open .nav__toggle span:nth-child(2) { transform: translateY(-3.5px) rotate(-45deg); }
+
+/* --------------------------------------------------------------------- */
+/* Disposition en deux colonnes (Parcours, Contact)                      */
+/* --------------------------------------------------------------------- */
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(40px, 7vw, 96px);
+  align-items: start;
+}
+.split__aside { position: sticky; top: 108px; }
+
+/* --------------------------------------------------------------------- */
+/* Footer                                                                */
+/* --------------------------------------------------------------------- */
+.footer {
+  background: var(--ink);
+  color: var(--ink-fg);
+  border-top: 1px solid var(--ink-rule);
+  padding-block: 40px;
+}
+.footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+.footer__brand { font-family: var(--font-display); font-size: 1.05rem; }
+.footer__brand span { color: var(--ink-muted); }
+.footer__nav { display: flex; gap: 24px; }
+.footer__nav a { font-size: 0.85rem; color: var(--ink-muted); transition: color 0.2s var(--ease); }
+.footer__nav a:hover { color: var(--ink-fg); }
+.footer__copy { font-size: 0.82rem; color: var(--ink-muted); }

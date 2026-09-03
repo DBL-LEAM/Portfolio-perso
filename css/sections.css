@@ -1,0 +1,265 @@
+/* =====================================================================
+   sections.css — Contenu
+   Hero, Parcours, Réalisations, Approche, Contact.
+   Charger APRÈS base.css et layout.css.
+   ===================================================================== */
+
+/* --------------------------------------------------------------------- */
+/* Hero                                                                  */
+/* --------------------------------------------------------------------- */
+.hero {
+  position: relative;
+  padding-block: clamp(64px, 9vw, 116px) clamp(76px, 11vw, 132px);
+}
+
+/* Fond décoratif derrière le hero — adaptation sombre de background-snippets.tsx :
+   grille très discrète + halo d'accent en haut à droite. */
+.hero::before,
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.hero::before {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 6rem 4rem;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 92%);
+          mask-image: linear-gradient(to bottom, #000 0%, transparent 92%);
+}
+.hero::after {
+  background: radial-gradient(600px circle at 100% 140px,
+              rgba(142, 130, 255, 0.16), transparent 70%);
+}
+
+.hero__grid {
+  position: relative;
+  z-index: 1;                            /* contenu au-dessus du fond décoratif */
+  display: grid;
+  grid-template-columns: 1.75fr 1fr;
+  column-gap: clamp(56px, 9vw, 132px);   /* photo écartée du texte */
+  row-gap: clamp(14px, 2vw, 24px);       /* espace entre le titre et le pitch/boutons */
+  align-items: start;
+}
+
+/* Colonne gauche scindée : le titre en haut (rangée 1), le reste en dessous.
+   La photo garde sa hauteur naturelle (ratio 4/5), calée en haut en regard du
+   titre. height:0 => elle ne compte pas dans la hauteur de la rangée : elle
+   déborde librement dans l'espace vide de la colonne droite, sans écarter le
+   titre du texte qui suit (contrôlé uniquement par row-gap). */
+.hero__head   { grid-column: 1; grid-row: 1; }
+.hero__figure { grid-column: 2; grid-row: 1; align-self: start; height: 0; }
+.hero__body {
+  grid-column: 1;
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 30px;
+}
+
+.kicker { color: var(--muted); display: block; margin-bottom: 30px; }
+
+.hero__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.1rem, 4.6vw, 3.7rem);
+  line-height: 1.16;
+  letter-spacing: -0.015em;
+  max-width: 20ch;
+}
+
+.hero__lead {
+  color: var(--muted);
+  font-size: 1.1rem;
+  max-width: 42ch;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 28px;
+}
+
+/* Cadre photo : rectangle net, filet fin, proportions 4/5 conservées. */
+.hero__figure { margin: 0; }
+.frame {
+  width: 100%;
+  border: 1px solid var(--rule);
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+}
+/* object-position : on protège le visage (cadrage vers le haut) */
+.frame img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%; }
+.frame__placeholder {
+  width: 100%; height: 100%;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+}
+
+/* --------------------------------------------------------------------- */
+/* Parcours                                                              */
+/* --------------------------------------------------------------------- */
+.path { border-top: 1px solid var(--rule); }
+.path__row {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 24px;
+  padding: 30px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.path__label { color: var(--accent); padding-top: 4px; }
+.path__body h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.24rem;
+  margin-bottom: 8px;
+}
+.path__body p { color: var(--muted); max-width: 56ch; }
+
+.stack {
+  margin-top: 40px;
+  color: var(--muted);
+  line-height: 1.9;
+}
+.stack__label {
+  display: block;
+  color: var(--fg);
+  margin-bottom: 10px;
+}
+
+/* --------------------------------------------------------------------- */
+/* Réalisations — lignes éditoriales alternées                           */
+/* --------------------------------------------------------------------- */
+.cases { border-top: 1px solid var(--rule); }
+
+.case {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(28px, 5vw, 72px);
+  align-items: center;
+  padding: clamp(40px, 6vw, 72px) 0;
+  border-bottom: 1px solid var(--rule);
+}
+.case:nth-child(even) .case__media { order: 2; }
+
+.case__media { border: 1px solid var(--rule); aspect-ratio: 4 / 3; overflow: hidden; }
+.case__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ease); }
+.case:hover .case__media img { transform: scale(1.03); }
+
+.case__placeholder {
+  width: 100%; height: 100%;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  background-image:
+    linear-gradient(var(--rule) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+.case__meta { color: var(--muted); margin-bottom: 14px; }
+.case__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.6rem, 3.4vw, 2.4rem);
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+.case__desc { color: var(--muted); max-width: 46ch; }
+.case__stack { color: var(--muted); font-size: 0.86rem; margin: 14px 0 22px; }
+
+/* --------------------------------------------------------------------- */
+/* Approche                                                              */
+/* --------------------------------------------------------------------- */
+.approach__lead {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.7rem, 3.8vw, 2.6rem);
+  line-height: 1.15;
+  max-width: 22ch;
+  margin-bottom: 56px;
+}
+.approach__lead em { font-style: italic; }
+
+.approach__steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--rule);
+}
+.approach__step {
+  padding: 32px 32px 32px 0;
+  border-right: 1px solid var(--rule);
+}
+.approach__step:last-child { border-right: 0; padding-right: 0; }
+.approach__step + .approach__step { padding-left: 32px; }
+.approach__step span {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--accent);
+}
+.approach__step h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.24rem;
+  margin: 14px 0 8px;
+}
+.approach__step p { color: var(--muted); font-size: 0.94rem; }
+
+/* --------------------------------------------------------------------- */
+/* Contact                                                               */
+/* --------------------------------------------------------------------- */
+.contact__mail {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 3vw, 1.9rem);
+  margin-top: 40px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid currentColor;
+  transition: color 0.2s var(--ease);
+}
+.contact__mail:hover { color: var(--accent); }
+
+.contact__links { display: flex; gap: 26px; margin-top: 22px; }
+.contact__links a {
+  font-size: 0.9rem;
+  color: var(--muted);
+  padding-bottom: 3px;
+  background: linear-gradient(currentColor, currentColor) left bottom / 0% 1px no-repeat;
+  transition: color 0.2s var(--ease), background-size 0.35s var(--ease);
+}
+.contact__links a:hover { color: var(--fg); background-size: 100% 1px; }
+
+/* Formulaire : champs soulignés, sans cadre ni coin arrondi */
+.form { display: grid; gap: 26px; }
+.field { display: grid; gap: 10px; }
+.field label { color: var(--muted); }
+.field input,
+.field textarea {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--rule);
+  padding: 8px 0;
+  color: var(--fg);
+  resize: vertical;
+  transition: border-color 0.2s var(--ease);
+}
+.field input::placeholder,
+.field textarea::placeholder { color: var(--muted); }
+.field input:focus,
+.field textarea:focus { outline: none; border-bottom-color: var(--fg); }
+.field.is-invalid input,
+.field.is-invalid textarea { border-bottom-color: #d4574e; }
+
+.form__feedback { font-size: 0.88rem; color: var(--muted); min-height: 1.2em; }
+.form__feedback.is-error { color: #d4574e; }
