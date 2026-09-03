@@ -43,8 +43,7 @@ Les fichiers CSS sont chargés dans l'ordre `base → layout → sections → re
 - **Projets** : chaque `<article class="case">` est autonome (image / texte
   alternés automatiquement). Remplacez `.case__placeholder` par un `<img>`.
 - **Coordonnées** : e-mail dans `index.html` (liens `mailto:` + JSON-LD) et
-  constante `DEST_EMAIL` en haut de `js/contact.js` ; liens LinkedIn / GitHub
-  dans la section Contact.
+  constante `DEST_EMAIL` en haut de `js/contact.js`.
 - **SEO / partage** : balises `<meta>` et bloc `application/ld+json` du `<head>` ;
   prévoir `img/og-image.jpg` (1200×630) et ajuster l'URL `canonical`.
 
