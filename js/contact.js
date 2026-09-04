@@ -1,14 +1,15 @@
 /* =====================================================================
    contact.js — Formulaire de contact + année du footer
-   Sans backend : on valide puis on ouvre le client mail du visiteur.
-   Pour un envoi sans quitter le site, branchez ici votre service
-   (Formspree, EmailJS, API…) à la place du bloc "mailto".
+   Envoi via Formspree (https://formspree.io) : le message part directement
+   depuis le formulaire, sans ouvrir la messagerie du visiteur.
    ===================================================================== */
 
 (function () {
   "use strict";
 
-  var DEST_EMAIL = "contact@mael.fr"; // ← votre adresse
+  // ← Remplacez par votre ID de formulaire Formspree (ex: "abcdwxyz")
+  var FORMSPREE_ID = "xqpkldeq";
+  var FORMSPREE_URL = "https://formspree.io/f/" + FORMSPREE_ID;
 
   var form = document.getElementById("contact-form");
   var feedback = document.getElementById("form-feedback");
@@ -35,21 +36,33 @@
         return;
       }
 
+      var submitBtn = form.querySelector("button[type=submit]");
       var data = new FormData(form);
-      var subject = "Nouveau projet — " + (data.get("entreprise") || data.get("nom"));
-      var body =
-        "Nom : " + data.get("nom") + "\n" +
-        "Email : " + data.get("email") + "\n" +
-        "Entreprise : " + (data.get("entreprise") || "—") + "\n\n" +
-        data.get("message");
+      feedback.textContent = "Envoi en cours…";
+      if (submitBtn) submitBtn.disabled = true;
 
-      window.location.href =
-        "mailto:" + DEST_EMAIL +
-        "?subject=" + encodeURIComponent(subject) +
-        "&body=" + encodeURIComponent(body);
-
-      feedback.textContent = "Votre messagerie va s'ouvrir. Merci, je vous réponds au plus vite.";
-      form.reset();
+      fetch(FORMSPREE_URL, {
+        method: "POST",
+        body: data,
+        headers: { Accept: "application/json" },
+      })
+        .then(function (response) {
+          if (response.ok) {
+            feedback.textContent = "Merci, votre message a bien été envoyé ! Je vous réponds au plus vite.";
+            form.reset();
+          } else {
+            return response.json().then(function (payload) {
+              throw new Error((payload && payload.error) || "Erreur d'envoi");
+            });
+          }
+        })
+        .catch(function () {
+          feedback.textContent = "L'envoi a échoué. Réessayez ou écrivez-moi directement par email.";
+          feedback.classList.add("is-error");
+        })
+        .finally(function () {
+          if (submitBtn) submitBtn.disabled = false;
+        });
     });
   }
 
