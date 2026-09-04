@@ -70,6 +70,7 @@
   line-height: 1.16;
   letter-spacing: -0.015em;
   max-width: 20ch;
+  text-wrap: balance;
 }
 
 .hero__lead {
@@ -217,6 +218,7 @@
   font-size: clamp(1.6rem, 3.4vw, 2.4rem);
   line-height: 1.1;
   margin-bottom: 12px;
+  text-wrap: balance;
 }
 .case__desc { color: var(--muted); max-width: 46ch; }
 .case__stack { color: var(--muted); font-size: 0.86rem; margin: 14px 0 22px; }
@@ -231,6 +233,7 @@
   line-height: 1.15;
   max-width: 22ch;
   margin-bottom: 56px;
+  text-wrap: balance;
 }
 .approach__lead em { font-style: italic; }
 
