@@ -49,10 +49,15 @@
   .approach__step:last-child { border-bottom: 0; }
 }
 
-/* Réalisations : image et texte empilés ---------------------------- */
-@media (max-width: 760px) {
-  .case { grid-template-columns: 1fr; gap: 22px; }
-  .case:nth-child(even) .case__media { order: 0; }
+/* Réalisations : la pile de cartes passe en une colonne (pile au-dessus,
+   texte en dessous) dès que la place manque pour les deux côte à côte. */
+@media (max-width: 860px) {
+  .cases-deck { grid-template-columns: 1fr; gap: 32px; }
+  .cases-deck__stage { height: clamp(260px, 60vw, 320px); }
+}
+
+@media (max-width: 480px) {
+  .case-card { width: min(340px, 90vw); }
 }
 
 /* Mobile ----------------------------------------------------------- */
@@ -61,6 +66,22 @@
   .hero__actions { flex-direction: column; align-items: flex-start; gap: 20px; }
   .btn { width: 100%; }
   .footer__inner { flex-direction: column; align-items: flex-start; }
+}
+
+/* Contact : texte plus compact sur mobile ----------------------------- */
+@media (max-width: 640px) {
+  #contact { padding-block: clamp(48px, 12vw, 72px); }
+
+  #contact .section__title {
+    font-size: clamp(1.5rem, 6.5vw, 1.9rem);
+    margin-bottom: 0;
+  }
+  #contact .section__note {
+    font-size: 0.92rem;
+    margin-top: 14px;
+  }
+
+  .contact__mail { font-size: 1.2rem; margin-top: 24px; }
 }
 
 /* Mouvement réduit ----------------------------------------------------- */

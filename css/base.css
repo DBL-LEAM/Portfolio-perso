@@ -149,6 +149,5 @@ button, input, textarea { font: inherit; color: inherit; }
   transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
 }
 .reveal.is-visible { opacity: 1; transform: none; }
-.cases .reveal:nth-child(2) { transition-delay: 0.05s; }
 .approach__steps .reveal:nth-child(2) { transition-delay: 0.05s; }
 .approach__steps .reveal:nth-child(3) { transition-delay: 0.1s; }

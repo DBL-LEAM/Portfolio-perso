@@ -109,34 +109,33 @@
           <h2 class="section__title">Quelques projets conçus <em>et développés</em>.</h2>
         </header>
 
-        <div class="cases">
+        <div class="cases-deck reveal">
+          <div class="cases-deck__stage" id="cases-stage" tabindex="0" role="group"
+            aria-label="Aperçus des réalisations, une carte à la fois">
 
-          <!-- Projet — dupliquez cet <article> pour ajouter une réalisation -->
-          <article class="case reveal">
-            <div class="case__media">
+            <!-- Projet — dupliquez cet <article> pour ajouter une réalisation -->
+            <article class="case-card" data-index="0">
               <div class="browser">
                 <div class="browser__bar" aria-hidden="true">
                   <span class="browser__dot"></span><span class="browser__dot"></span><span class="browser__dot"></span>
-                  <span class="browser__url">site-chanzy.vercel.app</span>
+                  <span class="browser__url">site-cocotte.vercel.app</span>
                 </div>
-                <img class="browser__shot" src="img/projects/chanzy.webp"
-                  alt="Aperçu de la page d'accueil du site du Lycée Chanzy" width="1280" height="640" loading="lazy"
-                  decoding="async" />
+                <img class="browser__shot" src="img/projects/cocotte.webp"
+                  alt="Aperçu de la page d'accueil du site La Cocotte Française" width="1280" height="640"
+                  loading="eager" decoding="async" />
               </div>
-            </div>
-            <div class="case__info">
-              <p class="case__meta">Site vitrine · Lycée · 2026 <span class="case__wip">Maquette en cours</span></p>
-              <h3 class="case__title">Lycée Chanzy</h3>
-              <p class="case__desc">Formations, cadre de vie et vie lycéenne du premier lycée d'État des Ardennes,
-                présentés de façon claire et institutionnelle. Projet en cours de conception.</p>
-              <p class="case__stack">HTML · CSS · JavaScript</p>
-              <a href="https://site-chanzy.vercel.app/" class="link-arrow" rel="noopener" target="_blank">Voir la
-                maquette</a>
-            </div>
-          </article>
+              <div class="case-card__data" hidden>
+                <p class="case__meta">Site e-commerce · Art de la table · 2026</p>
+                <h3 class="case__title">La Cocotte Française</h3>
+                <p class="case__desc">Vitrine haut de gamme pour une manufacture de cocottes en fonte : mise en scène
+                  des collections, univers de marque et fiches produits soignées.</p>
+                <p class="case__stack">HTML · CSS · JavaScript</p>
+                <a href="https://site-cocotte.vercel.app/" class="link-arrow" rel="noopener" target="_blank">Voir le
+                  projet</a>
+              </div>
+            </article>
 
-          <article class="case reveal">
-            <div class="case__media">
+            <article class="case-card" data-index="1">
               <div class="browser">
                 <div class="browser__bar" aria-hidden="true">
                   <span class="browser__dot"></span><span class="browser__dot"></span><span class="browser__dot"></span>
@@ -146,20 +145,39 @@
                   alt="Aperçu de la page d'accueil du site de l'ISM" width="1280" height="640" loading="lazy"
                   decoding="async" />
               </div>
-            </div>
-            <div class="case__info">
-              <p class="case__meta">Site vitrine · Enseignement supérieur · 2026</p>
-              <h3 class="case__title">ISM — Institut Supérieur du Management</h3>
-              <p class="case__desc">Catalogue de formations en management du Bac+2 au Bac+5, avec moteur de recherche et
-                parcours en alternance.</p>
-              <p class="case__stack">HTML · CSS · JavaScript</p>
-              <a href="https://site-ism-hazel.vercel.app/" class="link-arrow" rel="noopener" target="_blank">Voir le
-                projet</a>
-            </div>
-          </article>
+              <div class="case-card__data" hidden>
+                <p class="case__meta">Site vitrine · Enseignement supérieur · 2026</p>
+                <h3 class="case__title">ISM — Institut Supérieur du Management</h3>
+                <p class="case__desc">Catalogue de formations en management du Bac+2 au Bac+5, avec moteur de
+                  recherche et parcours en alternance.</p>
+                <p class="case__stack">HTML · CSS · JavaScript</p>
+                <a href="https://site-ism-hazel.vercel.app/" class="link-arrow" rel="noopener" target="_blank">Voir le
+                  projet</a>
+              </div>
+            </article>
 
-          <article class="case reveal">
-            <div class="case__media">
+            <article class="case-card" data-index="2">
+              <div class="browser">
+                <div class="browser__bar" aria-hidden="true">
+                  <span class="browser__dot"></span><span class="browser__dot"></span><span class="browser__dot"></span>
+                  <span class="browser__url">site-chanzy.vercel.app</span>
+                </div>
+                <img class="browser__shot" src="img/projects/chanzy.webp"
+                  alt="Aperçu de la page d'accueil du site du Lycée Chanzy" width="1280" height="640" loading="lazy"
+                  decoding="async" />
+              </div>
+              <div class="case-card__data" hidden>
+                <p class="case__meta">Site vitrine · Lycée · 2026 <span class="case__wip">Maquette en cours</span></p>
+                <h3 class="case__title">Lycée Chanzy</h3>
+                <p class="case__desc">Formations, cadre de vie et vie lycéenne du premier lycée d'État des Ardennes,
+                  présentés de façon claire et institutionnelle. Projet en cours de conception.</p>
+                <p class="case__stack">HTML · CSS · JavaScript</p>
+                <a href="https://site-chanzy.vercel.app/" class="link-arrow" rel="noopener" target="_blank">Voir la
+                  maquette</a>
+              </div>
+            </article>
+
+            <article class="case-card" data-index="3">
               <div class="browser">
                 <div class="browser__bar" aria-hidden="true">
                   <span class="browser__dot"></span><span class="browser__dot"></span><span class="browser__dot"></span>
@@ -169,20 +187,18 @@
                   alt="Aperçu de la page d'accueil du site de l'ISN" width="1280" height="640" loading="lazy"
                   decoding="async" />
               </div>
-            </div>
-            <div class="case__info">
-              <p class="case__meta">Site vitrine · Formation numérique · 2026</p>
-              <h3 class="case__title">ISN — Institut Supérieur du Numérique</h3>
-              <p class="case__desc">Six filières aux métiers du numérique en alternance : cybersécurité, développement
-                web, IA, cloud, réseaux et IoT.</p>
-              <p class="case__stack">HTML · CSS · JavaScript</p>
-              <a href="https://site-isn.vercel.app/" class="link-arrow" rel="noopener" target="_blank">Voir le
-                projet</a>
-            </div>
-          </article>
+              <div class="case-card__data" hidden>
+                <p class="case__meta">Site vitrine · Formation numérique · 2026</p>
+                <h3 class="case__title">ISN — Institut Supérieur du Numérique</h3>
+                <p class="case__desc">Six filières aux métiers du numérique en alternance : cybersécurité,
+                  développement web, IA, cloud, réseaux et IoT.</p>
+                <p class="case__stack">HTML · CSS · JavaScript</p>
+                <a href="https://site-isn.vercel.app/" class="link-arrow" rel="noopener" target="_blank">Voir le
+                  projet</a>
+              </div>
+            </article>
 
-          <article class="case reveal">
-            <div class="case__media">
+            <article class="case-card" data-index="4">
               <div class="browser">
                 <div class="browser__bar" aria-hidden="true">
                   <span class="browser__dot"></span><span class="browser__dot"></span><span class="browser__dot"></span>
@@ -192,18 +208,29 @@
                   alt="Aperçu de la page d'accueil du site de l'ITII Champagne-Ardenne" width="1280" height="640"
                   loading="lazy" decoding="async" />
               </div>
-            </div>
-            <div class="case__info">
-              <p class="case__meta">Site vitrine · École d'ingénieurs · 2026</p>
-              <h3 class="case__title">ITII Champagne-Ardenne</h3>
-              <p class="case__desc">Formations d'ingénieurs par alternance, avec recherche de formations et candidature
-                en ligne, sur deux campus.</p>
-              <p class="case__stack">HTML · CSS · JavaScript</p>
-              <a href="https://site-itii.vercel.app/" class="link-arrow" rel="noopener" target="_blank">Voir le
-                projet</a>
-            </div>
-          </article>
+              <div class="case-card__data" hidden>
+                <p class="case__meta">Site vitrine · École d'ingénieurs · 2026</p>
+                <h3 class="case__title">ITII Champagne-Ardenne</h3>
+                <p class="case__desc">Formations d'ingénieurs par alternance, avec recherche de formations et
+                  candidature en ligne, sur deux campus.</p>
+                <p class="case__stack">HTML · CSS · JavaScript</p>
+                <a href="https://site-itii.vercel.app/" class="link-arrow" rel="noopener" target="_blank">Voir le
+                  projet</a>
+              </div>
+            </article>
+          </div>
 
+          <div class="cases-deck__info" id="cases-info"></div>
+        </div>
+
+        <div class="cases-deck__controls">
+          <button class="cases-nav cases-nav--prev" type="button" aria-label="Réalisation précédente">
+            <span aria-hidden="true">←</span>
+          </button>
+          <div class="cases-deck__dots" id="cases-dots" role="tablist" aria-label="Choisir une réalisation"></div>
+          <button class="cases-nav cases-nav--next" type="button" aria-label="Réalisation suivante">
+            <span aria-hidden="true">→</span>
+          </button>
         </div>
       </div>
     </section>
@@ -341,6 +368,7 @@
   <!-- Scripts : 3 modules indépendants -->
   <script src="js/navigation.js" defer></script>
   <script src="js/reveal.js" defer></script>
+  <script src="js/carousel.js" defer></script>
   <script src="js/contact.js" defer></script>
 </body>
 

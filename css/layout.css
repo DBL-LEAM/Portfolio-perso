@@ -16,6 +16,11 @@
 
 .section { padding-block: clamp(64px, 11vw, 128px); }
 
+/* Contact : rythme légèrement resserré */
+#contact {
+  padding-block: clamp(56px, 8vw, 96px);
+}
+
 .section--ink {
   --fg: var(--ink-fg);
   --muted: var(--ink-muted);
