@@ -39,11 +39,11 @@
       width: (narrow ? 18 + Math.random() * 34 : 30 + Math.random() * 60),
       length: height * 2.5,
       angle: -35 + Math.random() * 10,
-      speed: (0.6 + Math.random() * 1.2) * 0.375,
-      opacity: (narrow ? 0.12 + Math.random() * 0.14 : 0.08 + Math.random() * 0.1),
+      speed: (0.6 + Math.random() * 1.2) * 0.43,
+      opacity: (narrow ? 0.16 + Math.random() * 0.17 : 0.08 + Math.random() * 0.1),
       hue: 190 + Math.random() * 70,
       pulse: Math.random() * Math.PI * 2,
-      pulseSpeed: (0.02 + Math.random() * 0.03) * 0.375
+      pulseSpeed: (0.02 + Math.random() * 0.03) * 0.43
     };
   }
 
@@ -55,9 +55,9 @@
     beam.y = canvas.height + 100;
     beam.x = column * spacing + spacing / 2 + (Math.random() - 0.5) * spacing * 0.5;
     beam.width = (narrow ? 55 + Math.random() * 55 : 100 + Math.random() * 100);
-    beam.speed = (0.5 + Math.random() * 0.4) * 0.375;
+    beam.speed = (0.5 + Math.random() * 0.4) * 0.43;
     beam.hue = 190 + (index * 70) / total;
-    beam.opacity = (narrow ? 0.18 + Math.random() * 0.12 : 0.12 + Math.random() * 0.08);
+    beam.opacity = (narrow ? 0.24 + Math.random() * 0.15 : 0.12 + Math.random() * 0.08);
     return beam;
   }
 
@@ -66,15 +66,21 @@
     ctx.translate(beam.x, beam.y);
     ctx.rotate((beam.angle * Math.PI) / 180);
 
+    // Sur petit écran, des couleurs un peu plus saturées/claires aident les
+    // faisceaux à ressortir malgré la faible largeur de l'écran.
+    var narrow = isNarrowViewport();
+    var sat = narrow ? "92%" : "85%";
+    var light = narrow ? "70%" : "65%";
+
     var pulsingOpacity = beam.opacity * (0.8 + Math.sin(beam.pulse) * 0.2) * INTENSITY;
 
     var gradient = ctx.createLinearGradient(0, 0, 0, beam.length);
-    gradient.addColorStop(0, "hsla(" + beam.hue + ", 85%, 65%, 0)");
-    gradient.addColorStop(0.1, "hsla(" + beam.hue + ", 85%, 65%, " + pulsingOpacity * 0.5 + ")");
-    gradient.addColorStop(0.4, "hsla(" + beam.hue + ", 85%, 65%, " + pulsingOpacity + ")");
-    gradient.addColorStop(0.6, "hsla(" + beam.hue + ", 85%, 65%, " + pulsingOpacity + ")");
-    gradient.addColorStop(0.9, "hsla(" + beam.hue + ", 85%, 65%, " + pulsingOpacity * 0.5 + ")");
-    gradient.addColorStop(1, "hsla(" + beam.hue + ", 85%, 65%, 0)");
+    gradient.addColorStop(0, "hsla(" + beam.hue + ", " + sat + ", " + light + ", 0)");
+    gradient.addColorStop(0.1, "hsla(" + beam.hue + ", " + sat + ", " + light + ", " + pulsingOpacity * 0.5 + ")");
+    gradient.addColorStop(0.4, "hsla(" + beam.hue + ", " + sat + ", " + light + ", " + pulsingOpacity + ")");
+    gradient.addColorStop(0.6, "hsla(" + beam.hue + ", " + sat + ", " + light + ", " + pulsingOpacity + ")");
+    gradient.addColorStop(0.9, "hsla(" + beam.hue + ", " + sat + ", " + light + ", " + pulsingOpacity * 0.5 + ")");
+    gradient.addColorStop(1, "hsla(" + beam.hue + ", " + sat + ", " + light + ", 0)");
 
     ctx.fillStyle = gradient;
     ctx.fillRect(-beam.width / 2, 0, beam.width, beam.length);
