@@ -20,8 +20,9 @@
   --accent-on-ink:   #8E82FF;
 
   /* Typographie */
-  --font-body:    "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-body:    "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-hero:    "Unbounded", "Segoe UI", system-ui, sans-serif;
 
   /* Rythme */
   --shell: 1200px;
@@ -72,7 +73,6 @@ button, input, textarea { font: inherit; color: inherit; }
 /* --------------------------------------------------------------------- */
 /* Typographie transversale                                              */
 /* --------------------------------------------------------------------- */
-.kicker,
 .section__index,
 .path__label,
 .stack__label,

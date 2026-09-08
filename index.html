@@ -32,11 +32,11 @@
   <link rel="icon"
     href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B0B0C'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23F4F1EA' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
 
-  <!-- Typographie : Playfair Display (titres) + Inter (texte) -->
+  <!-- Typographie : Bricolage Grotesque (titres) + DM Sans (texte) + Unbounded (titre hero) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Unbounded:wght@400;500;600;700&display=swap"
     rel="stylesheet" />
 
   <!-- Styles : 4 fichiers, à charger dans cet ordre -->
@@ -72,17 +72,19 @@
 
     <!-- ============================ HERO ============================ -->
     <section class="section section--ink hero" id="accueil">
+      <canvas class="hero__beams" aria-hidden="true"></canvas>
       <div class="shell hero__grid">
         <div class="hero__head reveal">
-          <p class="kicker">Développeur web freelance</p>
           <h1 class="hero__title">
-            Je crée des sites web qui donnent une vraie présence en ligne à votre entreprise.
+            <span class="hero__title-sub">Bonjour, je m'appelle</span>
+            <span class="hero__title-name">Mael Dubal</span>
+            <span class="hero__title-sub">et je suis un Développeur Web.</span>
           </h1>
         </div>
 
         <div class="hero__body reveal">
           <p class="hero__lead">
-            Des sites sur mesure, sobres et rapides, pour les entreprises et les indépendants.
+            Je crée des sites web qui donnent une vraie présence en ligne à votre entreprise.
           </p>
           <div class="hero__actions">
             <a href="#realisations" class="btn">Voir mes réalisations</a>
@@ -92,10 +94,12 @@
 
         <figure class="hero__figure reveal">
           <div class="frame">
-            <img src="img/mael-768.webp"
-              srcset="img/mael-480.webp 480w, img/mael-768.webp 768w, img/mael-1024.webp 1024w"
-              sizes="(max-width: 900px) 340px, 400px" alt="Portrait de Maël, développeur web freelance" width="1024"
-              height="1536" fetchpriority="high" />
+            <div class="frame__crop">
+              <img src="img/mael-768.webp"
+                srcset="img/mael-480.webp 480w, img/mael-768.webp 768w, img/mael-1024.webp 1024w"
+                sizes="(max-width: 900px) 340px, 400px" alt="Portrait de Maël, développeur web freelance" width="1024"
+                height="1536" fetchpriority="high" />
+            </div>
           </div>
         </figure>
       </div>
@@ -370,6 +374,7 @@
   <script src="js/reveal.js" defer></script>
   <script src="js/carousel.js" defer></script>
   <script src="js/contact.js" defer></script>
+  <script src="js/beams.js" defer></script>
 </body>
 
 </html>
