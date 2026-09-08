@@ -14,7 +14,7 @@
   var ctx = canvas.getContext("2d");
   if (!ctx) return;
 
-  var INTENSITY = 0.68; // 0.7 = subtil, 0.85 = moyen, 1 = marqué
+  var INTENSITY = 1; // 0.7 = subtil, 0.85 = moyen, 1 = marqué
   var MINIMUM_BEAMS = 20;
 
   var reduceMotion = window.matchMedia &&
