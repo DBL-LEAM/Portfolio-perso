@@ -24,15 +24,23 @@
   var frameId = null;
   var dpr = window.devicePixelRatio || 1;
 
+  // Sur petit écran, des faisceaux aussi larges que sur desktop se
+  // chevauchent dans les 3 colonnes et finissent en une nappe uniforme peu
+  // lisible : on les rétrécit pour qu'ils restent distincts.
+  function isNarrowViewport() {
+    return window.innerWidth <= 600;
+  }
+
   function createBeam(width, height) {
+    var narrow = isNarrowViewport();
     return {
       x: Math.random() * width * 1.5 - width * 0.25,
       y: Math.random() * height * 1.5 - height * 0.25,
-      width: 30 + Math.random() * 60,
+      width: (narrow ? 18 + Math.random() * 34 : 30 + Math.random() * 60),
       length: height * 2.5,
       angle: -35 + Math.random() * 10,
       speed: (0.6 + Math.random() * 1.2) * 0.375,
-      opacity: 0.08 + Math.random() * 0.1,
+      opacity: (narrow ? 0.12 + Math.random() * 0.14 : 0.08 + Math.random() * 0.1),
       hue: 190 + Math.random() * 70,
       pulse: Math.random() * Math.PI * 2,
       pulseSpeed: (0.02 + Math.random() * 0.03) * 0.375
@@ -40,15 +48,16 @@
   }
 
   function resetBeam(beam, index, total) {
+    var narrow = isNarrowViewport();
     var column = index % 3;
     var spacing = canvas.width / 3;
 
     beam.y = canvas.height + 100;
     beam.x = column * spacing + spacing / 2 + (Math.random() - 0.5) * spacing * 0.5;
-    beam.width = 100 + Math.random() * 100;
+    beam.width = (narrow ? 55 + Math.random() * 55 : 100 + Math.random() * 100);
     beam.speed = (0.5 + Math.random() * 0.4) * 0.375;
     beam.hue = 190 + (index * 70) / total;
-    beam.opacity = 0.12 + Math.random() * 0.08;
+    beam.opacity = (narrow ? 0.18 + Math.random() * 0.12 : 0.12 + Math.random() * 0.08);
     return beam;
   }
 
@@ -119,9 +128,15 @@
   }
 
   var resizeTimeout;
+  var lastWidth = window.innerWidth;
   window.addEventListener("resize", function () {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(function () {
+      // Sur mobile, l'apparition/disparition de la barre d'adresse au scroll
+      // déclenche un resize qui ne change que la hauteur : on l'ignore pour
+      // ne pas régénérer les faisceaux et faire "sauter" l'animation.
+      if (window.innerWidth === lastWidth) return;
+      lastWidth = window.innerWidth;
       updateCanvasSize();
       if (reduceMotion) renderStaticFrame();
     }, 150);

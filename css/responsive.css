@@ -68,6 +68,13 @@
   .footer__inner { flex-direction: column; align-items: flex-start; }
 }
 
+/* Fond du hero : le flou fixe de desktop noie les faisceaux sur un petit
+   écran (proportionnellement bien plus fort) ; on le réduit pour qu'ils
+   restent visibles. */
+@media (max-width: 600px) {
+  .hero__beams { filter: blur(9px); }
+}
+
 /* Contact : texte plus compact sur mobile ----------------------------- */
 @media (max-width: 640px) {
   #contact { padding-block: clamp(48px, 12vw, 72px); }
