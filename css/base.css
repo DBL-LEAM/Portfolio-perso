@@ -140,6 +140,104 @@ button, input, textarea { font: inherit; color: inherit; }
 .btn:hover { background: transparent; color: var(--fg); border-color: currentColor; }
 .btn--wide { align-self: flex-start; padding: 16px 44px; margin-top: 6px; }
 
+/* Boutons « faisceau » du hero — pastille dont la bordure tourne au survol.
+   Les deux variantes partagent la même mécanique et la même géométrie, mais
+   restent volontairement distinctes : --solid porte l'action principale,
+   --ghost reste en retrait. */
+.btn-beam {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1px;                 /* épaisseur de la bordure */
+  border: 0;
+  border-radius: 999px;
+  overflow: hidden;
+  background: none;
+  cursor: pointer;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.btn-beam:hover { transform: translateY(-2px); }
+
+/* Faisceau conique, révélé au survol */
+.btn-beam::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200%;                  /* carré : couvre le bouton à toutes les rotations */
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  background: conic-gradient(from 90deg at 50% 50%,
+              transparent 0%, transparent 75%, var(--beam) 100%);
+  opacity: 0;
+  animation: btn-beam-spin 3s linear infinite;
+  transition: opacity 0.3s var(--ease);
+}
+.btn-beam:hover::before { opacity: 1; }
+
+/* Bordure fixe, hors survol */
+.btn-beam::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--beam-rest);
+  transition: opacity 0.3s var(--ease);
+}
+.btn-beam:hover::after { opacity: 0; }
+
+.btn-beam__face {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8ch;
+  width: 100%;
+  padding: 13px 28px;
+  border-radius: inherit;
+  background: var(--face);
+  color: var(--face-fg);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  box-shadow: var(--face-inset);
+  transition: color 0.3s var(--ease);
+}
+.btn-beam__face::after { content: "\2192"; transition: transform 0.35s var(--ease); }
+.btn-beam:hover .btn-beam__face { color: var(--face-fg-hover); }
+.btn-beam:hover .btn-beam__face::after { transform: translateX(3px); }
+
+/* Principal : surface claire, faisceau accent */
+.btn-beam--solid {
+  --beam: var(--accent-on-ink);
+  --beam-rest: rgba(255, 255, 255, 0.38);
+  --face: linear-gradient(to bottom, #FFFFFF, var(--paper));
+  --face-fg: var(--ink);
+  --face-fg-hover: var(--ink);
+  --face-inset: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+.btn-beam--solid:hover { box-shadow: 0 0 25px rgba(142, 130, 255, 0.22); }
+.btn-beam--solid .btn-beam__face::after { content: none; }  /* pas de flèche */
+
+/* Secondaire : surface sombre, faisceau blanc, texte en retrait.
+   Ici le faisceau tourne en permanence : c'est lui qui attire l'oeil sur ce
+   bouton, la bordure fixe ne sert donc plus. */
+.btn-beam--ghost {
+  --beam: #FFFFFF;
+  --beam-rest: rgba(255, 255, 255, 0.18);
+  --face: linear-gradient(to bottom, #1B1B1F, #0B0B0C);
+  --face-fg: var(--ink-muted);
+  --face-fg-hover: var(--ink-fg);
+  --face-inset: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+.btn-beam--ghost::before { opacity: 1; }
+.btn-beam--ghost::after { opacity: 0; }
+.btn-beam--ghost:hover { box-shadow: 0 0 25px rgba(255, 255, 255, 0.10); }
+
+@keyframes btn-beam-spin { to { transform: rotate(360deg); } }
+
 /* --------------------------------------------------------------------- */
 /* Apparition au scroll (discrète) — activée par js/reveal.js            */
 /* --------------------------------------------------------------------- */

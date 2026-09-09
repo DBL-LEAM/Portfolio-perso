@@ -87,8 +87,12 @@
             Je crée des sites web qui donnent une vraie présence en ligne à votre entreprise.
           </p>
           <div class="hero__actions">
-            <a href="#realisations" class="btn">Voir mes réalisations</a>
-            <a href="#contact" class="link-arrow">Me contacter</a>
+            <a href="#realisations" class="btn-beam btn-beam--solid">
+              <span class="btn-beam__face">Voir mes réalisations</span>
+            </a>
+            <a href="#contact" class="btn-beam btn-beam--ghost">
+              <span class="btn-beam__face">Me contacter</span>
+            </a>
           </div>
         </div>
 
@@ -295,35 +299,46 @@
       </div>
     </section>
 
-    <!-- ============================ APPROCHE ============================ -->
-    <section class="section section--paper approach">
+    <!-- ============================ 03 · MÉTHODE ============================ -->
+    <!-- Bande photo unique : une seule image porte les trois zones de texte,
+         séparées par un mince filet vertical. Les numéros accompagnent
+         désormais les titres. -->
+    <section class="section section--ink approach">
       <div class="shell">
-        <p class="approach__lead reveal">Une méthode simple, <em>un seul interlocuteur</em>.</p>
-        <div class="approach__steps">
-          <div class="approach__step reveal">
-            <span>01</span>
-            <h3>Écoute</h3>
-            <p>On cadre ensemble votre activité, vos objectifs et le contenu du site.</p>
-          </div>
-          <div class="approach__step reveal">
-            <span>02</span>
-            <h3>Conception</h3>
-            <p>Je conçois et développe le site étape par étape, avec des points réguliers.</p>
-          </div>
-          <div class="approach__step reveal">
-            <span>03</span>
-            <h3>Mise en ligne</h3>
-            <p>Mise en production, prise en main et suivi une fois le site publié.</p>
-          </div>
-        </div>
+        <header class="section__head reveal">
+          <p class="section__index"><span>03</span> — Méthode</p>
+          <h2 class="section__title">Une méthode simple, <em>un seul interlocuteur</em>.</h2>
+        </header>
       </div>
+
+      <!-- role="list" : list-style: none retire la sémantique de liste sur Safari/VoiceOver -->
+      <ol class="approach__steps" role="list">
+        <li class="approach__step reveal">
+          <div class="approach__panel">
+            <h3 class="approach__title"><span class="approach__num" aria-hidden="true">01</span>Écoute</h3>
+            <p class="approach__text">On cadre ensemble votre activité, vos objectifs et le contenu du site.</p>
+          </div>
+        </li>
+        <li class="approach__step reveal">
+          <div class="approach__panel">
+            <h3 class="approach__title"><span class="approach__num" aria-hidden="true">02</span>Conception</h3>
+            <p class="approach__text">Je conçois et développe le site étape par étape, avec des points réguliers.</p>
+          </div>
+        </li>
+        <li class="approach__step reveal">
+          <div class="approach__panel">
+            <h3 class="approach__title"><span class="approach__num" aria-hidden="true">03</span>Mise en ligne</h3>
+            <p class="approach__text">Mise en production, prise en main et suivi une fois le site publié.</p>
+          </div>
+        </li>
+      </ol>
     </section>
 
-    <!-- ============================ 03 · CONTACT ============================ -->
+    <!-- ============================ 04 · CONTACT ============================ -->
     <section class="section section--ink" id="contact">
       <div class="shell split">
         <div class="split__aside reveal">
-          <p class="section__index"><span>03</span> — Contact</p>
+          <p class="section__index"><span>04</span> — Contact</p>
           <h2 class="section__title">Vous avez <em>un projet</em> ?</h2>
           <p class="section__note">
             Parlons-en et voyons ensemble comment créer un site qui correspond à votre activité.

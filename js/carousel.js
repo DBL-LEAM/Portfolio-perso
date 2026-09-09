@@ -75,6 +75,7 @@
     if (target === current) return;
     current = target;
     render(true);
+    scheduleAutoplay();
   }
 
   dotsWrap.innerHTML = "";
@@ -96,6 +97,100 @@
     if (e.key === "ArrowLeft") { e.preventDefault(); goTo(current - 1); }
   });
 
+  /* ------------------------------------------------------------------ */
+  /* Défilement automatique                                              */
+  /* Le minuteur repart à zéro après chaque changement de carte, manuel  */
+  /* ou non. Seule chose qui le met en pause : le survol de l'aperçu     */
+  /* (.browser) de la carte active — ni les flèches, ni les pastilles,   */
+  /* ni le focus clavier ne l'arrêtent. On suspend aussi quand l'onglet  */
+  /* est caché ou la pile hors de l'écran, cas invisibles pour le        */
+  /* visiteur : on se contente alors de reprogrammer un essai.           */
+  /* La pile n'est pas circulaire (les flèches se désactivent aux deux   */
+  /* extrémités) : arrivé au bout, le défilement repart en sens inverse  */
+  /* plutôt que de tout réempiler d'un coup.                             */
+  /*                                                                     */
+  /* Sur mobile (pas de survol possible), le défilement automatique est  */
+  /* désactivé : la seule pause prévue serait inatteignable, et le       */
+  /* visiteur navigue déjà au swipe. On suit la media query en direct    */
+  /* pour couvrir la rotation, le redimensionnement et les hybrides.     */
+  /* ------------------------------------------------------------------ */
+  var AUTOPLAY_MS = 5000;
+  var autoplayTimer = null;
+  var autoplayStep = 1;
+  var hovered = false;
+  var onScreen = true;
+
+  var hoverQuery = window.matchMedia ?
+    window.matchMedia("(hover: hover) and (pointer: fine)") : null;
+  var canHover = hoverQuery ? hoverQuery.matches : true;
+
+  function onHoverQueryChange(e) {
+    canHover = e.matches;
+    if (canHover) {
+      scheduleAutoplay();
+    } else if (autoplayTimer) {
+      window.clearTimeout(autoplayTimer);
+      autoplayTimer = null;
+    }
+  }
+
+  if (hoverQuery && hoverQuery.addEventListener) {
+    hoverQuery.addEventListener("change", onHoverQueryChange);
+  } else if (hoverQuery && hoverQuery.addListener) {
+    hoverQuery.addListener(onHoverQueryChange);
+  }
+
+  function scheduleAutoplay() {
+    if (autoplayTimer) window.clearTimeout(autoplayTimer);
+    autoplayTimer = null;
+    if (reduceMotion || !canHover || total < 2) return;
+    autoplayTimer = window.setTimeout(autoplayTick, AUTOPLAY_MS);
+  }
+
+  function autoplayTick() {
+    if (hovered || document.hidden || !onScreen) {
+      scheduleAutoplay();
+      return;
+    }
+    if (current + autoplayStep > total - 1 || current + autoplayStep < 0) {
+      autoplayStep = -autoplayStep;
+    }
+    goTo(current + autoplayStep);
+  }
+
+  /* On écoute sur la scène plutôt que sur chaque aperçu : les événements
+     mouseover/mouseout remontent, et seule la carte active reçoit le
+     pointeur (les autres sont en pointer-events: none). Le test sur
+     relatedTarget évite les faux « sorties » entre enfants du même
+     aperçu (barre du navigateur, image…). */
+  function previewOf(node) {
+    return node && node.closest ? node.closest(".browser") : null;
+  }
+
+  stage.addEventListener("mouseover", function (e) {
+    if (!previewOf(e.target)) return;
+    hovered = true;
+  });
+
+  stage.addEventListener("mouseout", function (e) {
+    var from = previewOf(e.target);
+    if (!from || previewOf(e.relatedTarget) === from) return;
+    hovered = false;
+    scheduleAutoplay();
+  });
+
+  document.addEventListener("visibilitychange", function () {
+    if (!document.hidden) scheduleAutoplay();
+  });
+
+  var deck = document.querySelector(".cases-deck");
+  if (window.IntersectionObserver && deck) {
+    new window.IntersectionObserver(function (entries) {
+      onScreen = entries[0].isIntersecting;
+      if (onScreen) scheduleAutoplay();
+    }, { threshold: 0.2 }).observe(deck);
+  }
+
   var touchStartX = 0;
   var touchStartY = 0;
   stage.addEventListener("touchstart", function (e) {
@@ -112,4 +207,5 @@
   }, { passive: true });
 
   render(false);
+  scheduleAutoplay();
 })();

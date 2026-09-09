@@ -21,6 +21,11 @@
   padding-block: clamp(56px, 8vw, 96px);
 }
 
+/* Approche : idem, la bande photo remplit déjà l'espace visuellement */
+.approach {
+  padding-block: clamp(48px, 7vw, 84px);
+}
+
 .section--ink {
   --fg: var(--ink-fg);
   --muted: var(--ink-muted);

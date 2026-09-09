@@ -90,7 +90,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 28px;
+  gap: 14px;
 }
 
 /* Cadre photo : portrait circulaire, sans bordure ni décalage. */
@@ -290,42 +290,111 @@
 .cases-nav[disabled] { opacity: 0.35; cursor: default; pointer-events: none; }
 
 /* --------------------------------------------------------------------- */
-/* Approche                                                              */
+/* Méthode — bande photo en trois zones                                  */
 /* --------------------------------------------------------------------- */
-.approach__lead {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(1.7rem, 3.8vw, 2.6rem);
-  line-height: 1.15;
-  max-width: 22ch;
-  margin-bottom: 56px;
-  text-wrap: balance;
+/* La photo couvre toute la section, titre compris : elle est posée sur
+   .approach (z-index -1, donc au-dessus du fond d'appoint mais sous le
+   contenu). Le fond ink ne sert plus que de repli si l'image ne charge pas. */
+.approach {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
 }
-.approach__lead em { font-style: italic; }
+.approach::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(to bottom, rgba(11, 11, 12, 0.62) 0%, rgba(11, 11, 12, 0.4) 34%, rgba(11, 11, 12, 0.86) 100%),
+    url("../img/approach/ecoute.webp");
+  background-size: cover;
+  background-position: center;
+  filter: contrast(1.04) saturate(0.92);
+}
 
+/* L'en-tête pose son texte directement sur la photo : pas de filet. */
+.approach .section__head {
+  border-bottom: 0;
+  padding-bottom: 0;
+  margin-bottom: clamp(34px, 4.2vw, 56px);
+}
+.approach .section__title,
+.approach .section__index span { text-shadow: 0 1px 18px rgba(11, 11, 12, 0.5); }
+
+/* Les trois zones se partagent la photo de la section : la grille n'a plus
+   de fond propre, seulement ses filets de séparation. */
 .approach__steps {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  border-top: 1px solid var(--rule);
+  gap: 0;
+  padding-inline: var(--gutter);
 }
+
 .approach__step {
-  padding: 32px 32px 32px 0;
-  border-right: 1px solid var(--rule);
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
-.approach__step:last-child { border-right: 0; padding-right: 0; }
-.approach__step + .approach__step { padding-left: 32px; }
-.approach__step span {
-  font-family: var(--font-display);
-  font-size: 1rem;
-  color: var(--accent);
+/* Filet vertical entre deux zones : fin, discret, et volontairement plus
+   court que l'image pour ne pas la couper de haut en bas. */
+.approach__step + .approach__step::before {
+  content: "";
+  position: absolute;
+  top: 22%;
+  bottom: 22%;
+  left: 0;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.3);
 }
-.approach__step h3 {
+
+.approach__panel {
+  flex: 1;
+  min-height: clamp(230px, 21vw, 300px);
+  padding: clamp(20px, 1.9vw, 30px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.approach__title {
+  font-family: var(--font-hero);
+  font-weight: 500;
+  font-size: clamp(1.3rem, 1.85vw, 1.7rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+  margin-bottom: 10px;
+}
+/* Numéro accolé au titre, en petite capitale d'accent. */
+.approach__num {
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: 1.24rem;
-  margin: 14px 0 8px;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  color: var(--accent-on-ink);
+  margin-right: 12px;
+  vertical-align: 0.32em;
 }
-.approach__step p { color: var(--muted); font-size: 0.94rem; }
+/* Trait d'accent sous le titre, qui se déploie au survol. */
+.approach__title::after {
+  content: "";
+  display: block;
+  width: 28px;
+  height: 2px;
+  margin-top: 12px;
+  background: var(--accent-on-ink);
+  transition: width 0.4s var(--ease);
+}
+.approach__step:hover .approach__title::after { width: 64px; }
+
+.approach__text {
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.97rem;
+  line-height: 1.55;
+  max-width: 32ch;
+  text-shadow: 0 1px 14px rgba(11, 11, 12, 0.55);
+}
 
 /* --------------------------------------------------------------------- */
 /* Contact                                                               */
