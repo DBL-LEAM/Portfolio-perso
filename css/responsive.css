@@ -126,6 +126,10 @@
   }
   .reveal { opacity: 1; transform: none; }
 
+  /* Le reflet des flèches du carrousel traverse la tuile en 0,75s : avec la
+     durée écrasée ci-dessus il ne ferait qu'un éclair blanc. On le retire. */
+  .cases-nav::before { content: none; }
+
   /* Le faisceau du bouton secondaire tourne en continu : sans cela la durée
      d'animation écrasée ci-dessus le ferait stroboscoper. On revient à la
      bordure fixe. */

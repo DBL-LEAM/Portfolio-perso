@@ -252,34 +252,19 @@
 .case__desc { color: var(--muted); max-width: 46ch; }
 .case__stack { color: var(--muted); font-size: 0.86rem; margin: 16px 0 24px; }
 
-/* Contrôles : une seule capsule flottante sous la pile, qui réunit les deux
-   flèches et les pastilles. Verre fumé sombre sur la section claire : la
-   section est unie, donc le backdrop-filter n'a presque rien à flouter —
-   il n'est là que pour la teinte et pour le jour où la capsule chevauchera
-   du contenu. C'est la translucidité du fond qui fait l'effet.
-   `width: fit-content` + marges auto : la capsule épouse son contenu et se
-   centre, sans conteneur supplémentaire. */
+/* Contrôles : deux tuiles de verre encadrant les pastilles, sous la pile.
+   Angles vifs — le parti pris du site — et non des pastilles rondes. */
 .cases-deck__controls {
   display: flex;
   align-items: center;
-  gap: 2px;
-  width: fit-content;
-  margin: clamp(28px, 4vw, 40px) auto 0;
-  padding: 5px;
-  border-radius: 999px;
-  background: rgba(14, 13, 17, 0.84);
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  box-shadow:
-    0 16px 36px -16px rgba(11, 11, 12, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  -webkit-backdrop-filter: blur(16px) saturate(150%);
-  backdrop-filter: blur(16px) saturate(150%);
+  justify-content: center;
+  gap: clamp(18px, 2.4vw, 30px);
+  margin-top: clamp(28px, 4vw, 40px);
 }
 
 /* Pastilles : le bouton porte la zone tactile (24x44), la pastille visible
-   est un pseudo-élément. La pastille active s'allonge en capsule plutôt que
-   de changer de taille — le mouvement reste dans le bouton, donc aucune
-   ligne ne se décale. */
+   est un pseudo-élément. L'active s'allonge en barre plutôt que de grossir —
+   le mouvement reste dans le bouton, donc aucune voisine ne se décale. */
 .cases-deck__dots { display: flex; align-items: center; }
 .cases-deck__dot {
   position: relative;
@@ -287,7 +272,6 @@
   height: 44px;
   padding: 0;
   border: 0;
-  border-radius: 999px;                  /* arrondit aussi l'anneau de focus */
   background: none;
   cursor: pointer;
 }
@@ -300,44 +284,100 @@
   width: 6px;
   height: 6px;
   border-radius: 999px;
-  background: rgba(237, 235, 230, 0.45);
+  background: rgba(23, 22, 26, 0.55);
   transition: width 0.45s var(--ease), background 0.3s var(--ease);
 }
-.cases-deck__dot:hover::after { background: rgba(237, 235, 230, 0.7); }
+.cases-deck__dot:hover::after { background: rgba(23, 22, 26, 0.8); }
 .cases-deck__dot[aria-selected="true"]::after {
   width: 20px;
-  background: var(--accent-on-ink);
+  background: var(--accent-on-paper);
 }
 
-/* Flèches : aucune bordure, le disque n'apparaît qu'au survol. */
+/* Flèches : tuiles de verre fumé, à angles vifs.
+   Le verre clair est invisible sur un fond crème uni : on teinte donc la
+   vitre au lieu de l'éclaircir. Elle reste translucide — le crème traverse
+   et la tuile rend en gris chaud, pas en noir. Le blur seul ne produirait
+   rien sur une couleur plate ; `saturate` et `brightness`, eux, agissent.
+   L'effet vient de l'empilement : voile dégradé, arête éclairée en haut,
+   liseré sombre en bas, ombre portée. */
 .cases-nav {
-  width: 44px;
-  height: 44px;
+  position: relative;
+  width: 54px;
+  height: 54px;
   flex: none;
   display: grid;
   place-items: center;
   padding: 0;
+  overflow: hidden;                      /* contient le reflet */
   border: 0;
-  border-radius: 999px;
-  background: transparent;
-  color: rgba(237, 235, 230, 0.62);
+  border-radius: 0;                      /* angles vifs */
+  background: linear-gradient(152deg,
+    rgba(28, 27, 32, 0.62) 0%,
+    rgba(14, 13, 17, 0.84) 100%);
+  -webkit-backdrop-filter: blur(14px) saturate(170%);
+  backdrop-filter: blur(14px) saturate(170%);
+  box-shadow:
+    0 16px 30px -14px rgba(23, 22, 26, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.24),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 -18px 24px -22px rgba(0, 0, 0, 0.6);
+  color: rgba(244, 241, 234, 0.88);
   cursor: pointer;
-  transition: background 0.25s var(--ease), color 0.25s var(--ease),
-              opacity 0.25s var(--ease), transform 0.2s var(--ease);
+  transition: background 0.3s var(--ease), box-shadow 0.3s var(--ease),
+              color 0.3s var(--ease), transform 0.25s var(--ease),
+              opacity 0.25s var(--ease);
 }
-.cases-nav svg { width: 18px; height: 18px; display: block; }
 
-/* La capsule est sombre alors que la section est claire : sans cette règle
-   l'anneau de focus hérite du currentColor de la section (#17161A) et
-   devient invisible sur le fond de la capsule — 1,4:1 mesuré. */
-.cases-nav:focus-visible,
-.cases-deck__dot:focus-visible {
-  outline: 2px solid var(--ink-fg);
-  outline-offset: 2px;
+/* Reflet oblique qui balaie la tuile au survol. */
+.cases-nav::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg,
+    transparent 38%, rgba(255, 255, 255, 0.3) 50%, transparent 62%);
+  translate: -130% 0;
+  transition: translate 0.75s var(--ease);
+  pointer-events: none;
 }
-.cases-nav:hover { background: rgba(255, 255, 255, 0.1); color: var(--ink-fg); }
-.cases-nav:active { transform: scale(0.92); }
-.cases-nav[disabled] { opacity: 0.24; cursor: default; pointer-events: none; }
+.cases-nav:hover::before { translate: 130% 0; }
+
+/* La règle globale pose l'anneau de focus à 3px À L'EXTÉRIEUR, dans la
+   couleur du texte : ici crème sur une section crème, donc invisible. On le
+   rentre dans la tuile, où il tranche sur le verre sombre. */
+.cases-nav:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.92);
+  outline-offset: -5px;
+}
+
+.cases-nav svg {
+  position: relative;                    /* au-dessus du reflet */
+  width: 19px;
+  height: 19px;
+  display: block;
+  transition: transform 0.3s var(--ease);
+}
+
+.cases-nav:hover {
+  background: linear-gradient(152deg,
+    rgba(38, 36, 44, 0.66) 0%,
+    rgba(18, 17, 22, 0.88) 100%);
+  color: #FFFFFF;
+  box-shadow:
+    0 22px 38px -14px rgba(23, 22, 26, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.34),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.14),
+    inset 0 -18px 24px -22px rgba(0, 0, 0, 0.6);
+}
+.cases-nav--prev:hover svg { transform: translateX(-2px); }
+.cases-nav--next:hover svg { transform: translateX(2px); }
+.cases-nav:active { transform: translateY(1px); }
+
+.cases-nav[disabled] {
+  opacity: 0.32;
+  cursor: default;
+  pointer-events: none;
+  box-shadow: none;
+}
 
 /* --------------------------------------------------------------------- */
 /* Méthode — bande photo en trois zones                                  */
