@@ -52,8 +52,18 @@ chargés en `defer`.
   choisit la taille adaptée à l'écran. Pour changer la photo, remplacez
   `img/mael.png` puis régénérez les 3 tailles (voir script Python utilisé,
   `PIL`/`Pillow`, qualité 82).
-- **Projets** : chaque `<article class="case">` est autonome (image / texte
-  alternés automatiquement). Remplacez `.case__placeholder` par un `<img>`.
+- **Projets** : chaque `<article class="case-card">` de `#cases-stage` est
+  autonome — la capture dans son `.browser`, le texte dans son
+  `.case-card__data` (masqué, recopié dans le panneau par `js/carousel.js`).
+  Dupliquez un article pour ajouter une réalisation : pastilles et flèches
+  suivent tout seuls. Pour signaler un projet en chantier, ajoutez
+  `<span class="case__wip">Maquette en cours</span>` dans son `.case__meta`.
+- **Contrôles du carrousel** : flèches et pastilles forment une seule capsule
+  flottante (`.cases-deck__controls`), verre fumé sombre posé sur la section
+  claire. La pastille active s'allonge en capsule via un pseudo-élément, donc
+  sans décaler ses voisines. La capsule étant sombre alors que la section est
+  claire, l'anneau de focus y est forcé en clair — sinon il hérite du
+  `currentColor` de la section et disparaît.
 - **Coordonnées** : e-mail dans `index.html` (liens `mailto:` + JSON-LD) et
   constante `DEST_EMAIL` en haut de `js/contact.js`.
 - **SEO / partage** : balises `<meta>` et bloc `application/ld+json` du `<head>` ;

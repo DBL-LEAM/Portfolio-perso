@@ -226,6 +226,9 @@
 .cases-deck__info { min-height: 220px; transition: opacity 0.18s var(--ease); }
 
 .case__meta { color: var(--muted); margin-bottom: 14px; }
+/* Pastille « travaux en cours » — plus employée actuellement, conservée
+   pour marquer un projet en chantier : ajouter
+   <span class="case__wip">Maquette en cours</span> dans son .case__meta. */
 .case__wip {
   display: inline-block;
   margin-left: 8px;
@@ -249,45 +252,92 @@
 .case__desc { color: var(--muted); max-width: 46ch; }
 .case__stack { color: var(--muted); font-size: 0.86rem; margin: 16px 0 24px; }
 
-/* Contrôles : flèches + pastilles, sous la pile */
+/* Contrôles : une seule capsule flottante sous la pile, qui réunit les deux
+   flèches et les pastilles. Verre fumé sombre sur la section claire : la
+   section est unie, donc le backdrop-filter n'a presque rien à flouter —
+   il n'est là que pour la teinte et pour le jour où la capsule chevauchera
+   du contenu. C'est la translucidité du fond qui fait l'effet.
+   `width: fit-content` + marges auto : la capsule épouse son contenu et se
+   centre, sans conteneur supplémentaire. */
 .cases-deck__controls {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 24px;
-  margin-top: clamp(28px, 4vw, 40px);
+  gap: 2px;
+  width: fit-content;
+  margin: clamp(28px, 4vw, 40px) auto 0;
+  padding: 5px;
+  border-radius: 999px;
+  background: rgba(14, 13, 17, 0.84);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow:
+    0 16px 36px -16px rgba(11, 11, 12, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  backdrop-filter: blur(16px) saturate(150%);
 }
 
-.cases-deck__dots { display: flex; align-items: center; gap: 10px; }
+/* Pastilles : le bouton porte la zone tactile (24x44), la pastille visible
+   est un pseudo-élément. La pastille active s'allonge en capsule plutôt que
+   de changer de taille — le mouvement reste dans le bouton, donc aucune
+   ligne ne se décale. */
+.cases-deck__dots { display: flex; align-items: center; }
 .cases-deck__dot {
-  width: 8px;
-  height: 8px;
+  position: relative;
+  width: 24px;
+  height: 44px;
   padding: 0;
   border: 0;
-  border-radius: 999px;
-  background: var(--rule);
+  border-radius: 999px;                  /* arrondit aussi l'anneau de focus */
+  background: none;
   cursor: pointer;
-  transition: background 0.2s var(--ease), transform 0.2s var(--ease);
 }
-.cases-deck__dot[aria-selected="true"] { background: var(--accent); transform: scale(1.35); }
+.cases-deck__dot::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(237, 235, 230, 0.45);
+  transition: width 0.45s var(--ease), background 0.3s var(--ease);
+}
+.cases-deck__dot:hover::after { background: rgba(237, 235, 230, 0.7); }
+.cases-deck__dot[aria-selected="true"]::after {
+  width: 20px;
+  background: var(--accent-on-ink);
+}
 
+/* Flèches : aucune bordure, le disque n'apparaît qu'au survol. */
 .cases-nav {
   width: 44px;
   height: 44px;
   flex: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--rule);
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
   border-radius: 999px;
   background: transparent;
-  color: var(--fg);
-  font-size: 1.05rem;
+  color: rgba(237, 235, 230, 0.62);
   cursor: pointer;
-  transition: background 0.2s var(--ease), color 0.2s var(--ease), opacity 0.2s var(--ease);
+  transition: background 0.25s var(--ease), color 0.25s var(--ease),
+              opacity 0.25s var(--ease), transform 0.2s var(--ease);
 }
-.cases-nav:hover { background: var(--fg); color: var(--paper); border-color: var(--fg); }
-.cases-nav[disabled] { opacity: 0.35; cursor: default; pointer-events: none; }
+.cases-nav svg { width: 18px; height: 18px; display: block; }
+
+/* La capsule est sombre alors que la section est claire : sans cette règle
+   l'anneau de focus hérite du currentColor de la section (#17161A) et
+   devient invisible sur le fond de la capsule — 1,4:1 mesuré. */
+.cases-nav:focus-visible,
+.cases-deck__dot:focus-visible {
+  outline: 2px solid var(--ink-fg);
+  outline-offset: 2px;
+}
+.cases-nav:hover { background: rgba(255, 255, 255, 0.1); color: var(--ink-fg); }
+.cases-nav:active { transform: scale(0.92); }
+.cases-nav[disabled] { opacity: 0.24; cursor: default; pointer-events: none; }
 
 /* --------------------------------------------------------------------- */
 /* Méthode — bande photo en trois zones                                  */
