@@ -54,17 +54,13 @@ body {
   gap: clamp(16px, 2.2vw, 26px);
 }
 
-/* Bricolage Grotesque — la police des titres du site, déjà chargée par
-   l'accueil. Son axe variable `opsz` (12 à 96) est prévu pour les grandes
-   tailles : à 96 les contreformes s'ouvrent et les fûts s'affinent, ce
-   qu'un simple grossissement ne donne pas. */
+/* Unbounded — la police du titre du hero, comme sur l'accueil. */
 .nf__code {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-variation-settings: "opsz" 96, "wght" 800;
-  font-size: clamp(6rem, 28vw, 16rem);
-  line-height: 0.82;
-  letter-spacing: -0.045em;
+  font-family: var(--font-hero);
+  font-weight: 600;
+  font-size: clamp(5rem, 22vw, 13.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
   color: var(--ink-fg);                  /* repli : voir @supports plus bas */
 }
 
@@ -91,22 +87,29 @@ body {
   font-size: 0.42em;
   color: var(--accent);
   -webkit-text-fill-color: var(--accent);
-  /* Ponctuation suspendue : mesurée à 1440px, l'avance du point vaut 14px
-     et décalait le « 404 » de 7px à gauche du centre. Les deux marges
-     annulent cette avance (total -0.14em du point) et resserrent un peu
-     l'espace après le dernier chiffre. Exprimées en em, elles suivent la
-     taille du texte à tous les paliers. */
-  margin-left: -0.05em;
-  margin-right: -0.09em;
+  /* Ponctuation suspendue. Mesurée sur le rendu à 1440px : l'avance du point
+     vaut 15,5px et décalerait le « 404 » de la moitié hors du centre. La
+     marge négative l'annule, le point déborde à droite sans compter dans le
+     centrage, et l'approche gauche du glyphe suffit à l'écarter du dernier
+     chiffre (~6px). En em, donc valable à tous les paliers du clamp().
+     Valeur propre aux métriques d'Unbounded : à réajuster si la police du
+     chiffre change. */
+  margin-right: -0.17em;
 }
 
+/* Bricolage Grotesque, la police des titres du site : plus de caractère que
+   le DM Sans du corps de texte, et elle n'entre pas en concurrence avec
+   l'Unbounded du chiffre. Déjà chargée par l'accueil. */
 .nf__label {
-  font-family: var(--font-body);
-  font-size: clamp(0.72rem, 1.4vw, 0.84rem);
-  font-weight: 500;
-  letter-spacing: 0.24em;
+  font-family: var(--font-display);
+  font-size: clamp(0.74rem, 1.4vw, 0.88rem);
+  font-weight: 600;
+  letter-spacing: 0.26em;
   text-transform: uppercase;
   color: var(--muted);
+  /* La lettre finale porte aussi son interlettrage : sans ce retrait le
+     mot paraît décalé à gauche. */
+  margin-right: -0.26em;
 }
 
 .nf__action { margin-top: clamp(36px, 4.8vw, 52px); }

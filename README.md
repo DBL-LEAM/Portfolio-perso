@@ -66,26 +66,31 @@ un bouton. Fond noir et faisceaux animés de l'accueil, point d'accent après
 le chiffre comme la marque « Maël. » de la navbar. Rien d'autre — une page
 d'erreur n'a rien à faire lire.
 
-Le chiffre est composé en **Bricolage Grotesque** (la police des titres du
-site, déjà chargée par l'accueil), poussée à `wght 800` et `opsz 96` : cet
-axe optique est prévu pour les grands corps, les contreformes s'ouvrent et
-les fûts s'affinent, ce qu'un simple grossissement ne donne pas. Il est
-rempli par un dégradé vertical (blanc → gris violacé) appliqué en
-`background-clip: text`, sous `@supports` pour que le texte reste visible en
+Le chiffre est composé en **Unbounded**, la police du titre du hero, et le
+libellé en **Bricolage Grotesque**, celle des titres de section — les deux
+sont déjà chargées par l'accueil, la page n'ajoute aucune requête. Le
+chiffre est rempli par un dégradé vertical (blanc → gris violacé) appliqué
+en `background-clip: text`, sous `@supports` pour qu'il reste visible en
 couleur pleine si le navigateur ne connaît pas la propriété.
 
-Deux réglages typographiques valent d'être conservés si vous y touchez :
-le point d'accent est en ponctuation suspendue (marges négatives annulant
-son avance) sans quoi il décale le « 404 » de la moitié de sa largeur hors
-du centre ; et les marges sont exprimées en `em` pour suivre le `clamp()`
-de la taille à tous les paliers.
+Deux réglages de calage valent d'être conservés si vous y touchez, tous
+deux vérifiés au pixel sur le rendu :
+
+- Le point d'accent est en **ponctuation suspendue** : une marge droite
+  négative annule son avance (15,5px à 1440px), sans quoi il pousse le
+  « 404 » de la moitié de cette valeur hors du centre. La valeur dépend des
+  métriques d'Unbounded — à réajuster si la police du chiffre change.
+- Le libellé porte un `margin-right` négatif égal à son interlettrage : la
+  dernière lettre traîne son approche, qui décalerait le mot vers la gauche.
+
+Les deux marges sont en `em`, donc valables à tous les paliers du `clamp()`.
 
 Elle réutilise les composants existants (`.nav`, `.btn-beam`, `.hero__beams`,
 `.section--ink`) ; `css/notfound.css` ne définit que la mise en page du bloc.
 Aucun script propre à la page, et aucun `.reveal` : le bouton de sortie
 s'affiche même si le JavaScript ne s'exécute pas.
 
-Contrastes mesurés sur le rendu : le dégradé va de 18,7:1 à 6,0:1 sur le
+Contrastes mesurés sur le rendu : le dégradé va de 18,7:1 à 5,9:1 sur le
 fond noir, au-dessus du minimum de 3:1 des grands corps comme du 4,5:1 du
 texte courant.
 
