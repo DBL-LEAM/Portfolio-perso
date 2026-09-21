@@ -58,19 +58,6 @@ chargés en `defer`.
   Dupliquez un article pour ajouter une réalisation : pastilles et flèches
   suivent tout seuls. Pour signaler un projet en chantier, ajoutez
   `<span class="case__wip">Maquette en cours</span>` dans son `.case__meta`.
-- **Contrôles du carrousel** : les flèches sont deux tuiles de verre fumé à
-  angles vifs (`.cases-nav`), encadrant les pastilles. La section étant d'une
-  couleur unie, un `blur` seul n'y produirait rien : ce sont `saturate` et
-  `brightness` du `backdrop-filter` qui agissent, et la vitre est teintée
-  sombre plutôt qu'éclaircie — du verre clair sur du crème est invisible. La
-  tuile reste translucide (elle rend vers `rgb(99,96,95)` là où, opaque, elle
-  vaudrait `rgb(14,13,17)`). Un reflet oblique la balaie au survol, retiré
-  sous `prefers-reduced-motion` où il ne serait qu'un éclair.
-  La pastille active s'allonge en barre via un pseudo-élément, donc sans
-  décaler ses voisines.
-  Attention à l'anneau de focus des flèches : la règle globale le pose à 3px
-  **à l'extérieur** dans la couleur du texte, soit du crème sur du crème. Il
-  est donc redéfini en `outline-offset: -5px`, à l'intérieur du verre.
 - **Coordonnées** : e-mail dans `index.html` (liens `mailto:` + JSON-LD) et
   constante `DEST_EMAIL` en haut de `js/contact.js`.
 - **SEO / partage** : balises `<meta>` et bloc `application/ld+json` du `<head>` ;
