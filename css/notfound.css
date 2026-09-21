@@ -1,8 +1,8 @@
 /* =====================================================================
    notfound.css — Page 404
-   Un seul écran, centré : le code d'erreur en grand dans la typographie
-   du hero (Unbounded), une ligne, un bouton. Aucun contenu secondaire —
-   une page d'erreur n'a rien à faire lire.
+   Un seul écran, centré : le code d'erreur en grand, un libellé, un
+   bouton. Aucun contenu secondaire — une page d'erreur n'a rien à faire
+   lire.
    Charger APRÈS sections.css et AVANT responsive.css.
    ===================================================================== */
 
@@ -51,26 +51,53 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(14px, 2vw, 22px);
+  gap: clamp(16px, 2.2vw, 26px);
 }
 
+/* Bricolage Grotesque — la police des titres du site, déjà chargée par
+   l'accueil. Son axe variable `opsz` (12 à 96) est prévu pour les grandes
+   tailles : à 96 les contreformes s'ouvrent et les fûts s'affinent, ce
+   qu'un simple grossissement ne donne pas. */
 .nf__code {
-  font-family: var(--font-hero);
-  font-weight: 600;
-  font-size: clamp(5.5rem, 21vw, 13rem);
-  line-height: 0.9;
-  letter-spacing: -0.03em;
-  /* Compensation optique : le letter-spacing s'applique aussi après le
-     dernier signe et décalerait le bloc vers la gauche. */
-  margin-right: -0.03em;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-variation-settings: "opsz" 96, "wght" 800;
+  font-size: clamp(6rem, 28vw, 16rem);
+  line-height: 0.82;
+  letter-spacing: -0.045em;
+  color: var(--ink-fg);                  /* repli : voir @supports plus bas */
+}
+
+/* Dégradé vertical léger, du blanc vers un gris violacé qui rappelle
+   l'accent sans le citer. La teinte la plus sombre reste à 4,6:1 sur le
+   fond noir — au-dessus du minimum de 3:1 exigé pour un grand corps. */
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .nf__code {
+    background-image: linear-gradient(172deg,
+      #FFFFFF 0%,
+      var(--ink-fg) 38%,
+      #8078A0 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
 }
 
 /* Point d'accent : même signe que la marque « Maël. » de la navbar.
-   Réduit, car à cette taille le point d'Unbounded devient un disque qui
-   prend le pas sur le chiffre. Il reste posé sur la ligne de base. */
+   Réduit, car à cette taille le point devient un disque qui prend le pas
+   sur le chiffre. Il garde sa couleur pleine, hors du dégradé. */
 .nf__dot {
-  font-size: 0.4em;
+  font-size: 0.42em;
   color: var(--accent);
+  -webkit-text-fill-color: var(--accent);
+  /* Ponctuation suspendue : mesurée à 1440px, l'avance du point vaut 14px
+     et décalait le « 404 » de 7px à gauche du centre. Les deux marges
+     annulent cette avance (total -0.14em du point) et resserrent un peu
+     l'espace après le dernier chiffre. Exprimées en em, elles suivent la
+     taille du texte à tous les paliers. */
+  margin-left: -0.05em;
+  margin-right: -0.09em;
 }
 
 .nf__label {
@@ -82,14 +109,4 @@ body {
   color: var(--muted);
 }
 
-/* Même retrait que le .hero__lead de l'accueil : le chiffre porte seul
-   l'accroche, la phrase l'explique sans lui disputer l'attention. */
-.nf__lead {
-  margin-top: clamp(24px, 3.2vw, 32px);
-  max-width: 46ch;
-  color: var(--muted);
-  font-size: clamp(1rem, 1.5vw, 1.1rem);
-  text-wrap: balance;
-}
-
-.nf__action { margin-top: clamp(30px, 4vw, 42px); }
+.nf__action { margin-top: clamp(36px, 4.8vw, 52px); }
