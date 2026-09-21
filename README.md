@@ -17,6 +17,7 @@ et à un lien.
 portfolio/
 ├── index.html          Page unique ; la navbar fait défiler vers les sections
 ├── 404.html            Page d'erreur (voir « Page 404 » plus bas)
+├── .htaccess           Apache/o2switch : branche la 404 (fichier caché)
 ├── css/
 │   ├── base.css        Variables (:root), reset, typographie, liens, boutons, .reveal
 │   ├── layout.css      Conteneur, contextes .section--ink / --paper, navbar, footer
@@ -85,10 +86,29 @@ Deux éléments sont produits à l'exécution par `js/notfound.js` :
 Le sommaire n'utilise volontairement pas `.reveal` : c'est le seul chemin de
 sortie de la page, il ne doit pas dépendre de l'exécution d'un script.
 
-**Mise en ligne** — un fichier `404.html` à la racine est servi
-automatiquement sur les erreurs 404 par Vercel, Netlify, GitHub Pages et
-Cloudflare Pages ; aucune configuration n'est nécessaire. Sur Apache, ajouter
-`ErrorDocument 404 /404.html` ; sur Nginx, `error_page 404 /404.html;`.
+**Mise en ligne** — Vercel, Netlify, GitHub Pages et Cloudflare Pages
+reprennent un `404.html` à la racine sans configuration.
+
+**Apache / LiteSpeed (o2switch, OVH, la plupart des mutualisés)** ne le font
+pas : sans directive explicite, le serveur affiche sa propre page « Not
+Found ». D'où le fichier `.htaccess` à la racine du dépôt :
+
+```apache
+ErrorDocument 404 /404.html
+```
+
+Deux points d'attention :
+
+- `.htaccess` commence par un point : la plupart des clients FTP le
+  **masquent** par défaut (FileZilla : Serveur → Forcer l'affichage des
+  fichiers cachés). S'il n'est pas transféré, rien ne change.
+- Si un `.htaccess` existe déjà sur le serveur, y **ajouter** la ligne plutôt
+  que d'écraser le fichier : il contient souvent des règles HTTPS ou de
+  redirection.
+
+Apache sert alors la page sans rediriger : l'adresse demandée reste dans la
+barre du navigateur (nécessaire à `js/notfound.js`) et le code HTTP renvoyé
+reste 404. Sur Nginx : `error_page 404 /404.html;` dans le bloc `server`.
 
 Pour ajouter ou renommer une section du site, penser à mettre à jour les
 lignes `<li class="map__row">` de `404.html` **et** la liste `SECTIONS` de

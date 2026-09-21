@@ -1,0 +1,16 @@
+# =====================================================================
+# .htaccess — Apache / LiteSpeed (o2switch)
+#
+# Sans cette directive, le serveur affiche sa propre page « Not Found »
+# grise : un fichier 404.html à la racine n'est PAS repris automatiquement
+# par Apache (contrairement à Vercel, Netlify ou GitHub Pages).
+#
+# ATTENTION : si un .htaccess existe déjà à la racine du site sur le
+# serveur, ne pas l'écraser — y ajouter la ligne ErrorDocument ci-dessous.
+# =====================================================================
+
+# Chemin absolu depuis la racine du domaine (le / initial est obligatoire).
+# Apache sert la page SANS rediriger : l'adresse demandée reste affichée
+# dans la barre du navigateur — c'est ce dont js/notfound.js a besoin pour
+# retrouver le chemin demandé — et le code renvoyé reste bien un 404.
+ErrorDocument 404 /404.html
