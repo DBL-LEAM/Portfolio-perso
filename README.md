@@ -27,8 +27,7 @@ portfolio/
 ├── js/
 │   ├── navigation.js   Navbar au défilement + menu mobile
 │   ├── reveal.js       Apparition des sections au défilement
-│   ├── contact.js      Formulaire + année du footer
-│   └── notfound.js     Page 404 : adresse demandée + section suggérée
+│   └── contact.js      Formulaire + année du footer
 └── img/
     ├── mael.png            Photo source du hero (haute résolution, non servie)
     ├── mael-480.webp       Photo du hero — mobile
@@ -62,29 +61,21 @@ chargés en `defer`.
 
 ## Page 404
 
-`404.html` reprend l'ossature de l'accueil (navbar, faisceaux du hero, cadre
-navigateur des réalisations, alternance ink / paper, pied de page) plutôt que
-d'afficher un grand chiffre décoratif.
+`404.html` tient en un seul écran : le code d'erreur en grand dans la
+typographie du hero (Unbounded), un libellé, une phrase, un bouton. Fond
+noir et faisceaux animés de l'accueil, point d'accent après le chiffre comme
+la marque « Maël. » de la navbar. Rien d'autre — une page d'erreur n'a rien
+à faire lire.
 
-Le parti pris tient en une phrase : le site n'ayant **qu'une seule page**, il
-n'a qu'une seule adresse valide. Le code d'erreur prend donc la place du
-numéro de section (`404 — Hors sommaire`, en regard des `01 — Réalisations`
-de l'accueil), et la page se referme sur le sommaire réel des quatre sections.
+Elle réutilise les composants existants (`.nav`, `.btn-beam`, `.hero__beams`,
+`.section--ink`) ; `css/notfound.css` ne définit que la mise en page du bloc.
+Aucun script propre à la page, et aucun `.reveal` : le bouton de sortie
+s'affiche même si le JavaScript ne s'exécute pas.
 
-Deux éléments sont produits à l'exécution par `js/notfound.js` :
-
-- **L'adresse demandée**, reprise dans la barre du cadre navigateur, dans la
-  trace HTTP sous le cadre et en dernière ligne du sommaire (filet en
-  pointillés, ni numéro ni flèche). Elle est toujours insérée via
-  `textContent`, jamais en HTML.
-- **La section la plus probable**, déduite de l'adresse par comparaison à une
-  liste de mots-clés (`/mes-projets` → Réalisations, `/a-propos` → Parcours,
-  `/contct` → Contact). En cas de doute le script ne propose rien : une
-  mauvaise suggestion vaut moins que pas de suggestion. Les mots-clés sont
-  dans la constante `SECTIONS` en haut du fichier.
-
-Le sommaire n'utilise volontairement pas `.reveal` : c'est le seul chemin de
-sortie de la page, il ne doit pas dépendre de l'exécution d'un script.
+Le bloc occupe exactement la hauteur restante sous la navbar via un `body` en
+flex — la hauteur de la barre n'est jamais codée en dur (elle vaut 75px, et
+non 74, une fois compté le filet du dessous). En paysage sur mobile, une media
+query réduit le chiffre pour que tout tienne sans défilement.
 
 **Mise en ligne** — Vercel, Netlify, GitHub Pages et Cloudflare Pages
 reprennent un `404.html` à la racine sans configuration.
@@ -107,12 +98,8 @@ Deux points d'attention :
   redirection.
 
 Apache sert alors la page sans rediriger : l'adresse demandée reste dans la
-barre du navigateur (nécessaire à `js/notfound.js`) et le code HTTP renvoyé
-reste 404. Sur Nginx : `error_page 404 /404.html;` dans le bloc `server`.
-
-Pour ajouter ou renommer une section du site, penser à mettre à jour les
-lignes `<li class="map__row">` de `404.html` **et** la liste `SECTIONS` de
-`js/notfound.js`.
+barre du navigateur et le code HTTP renvoyé reste 404. Sur Nginx :
+`error_page 404 /404.html;` dans le bloc `server`.
 
 ## Formulaire
 

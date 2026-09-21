@@ -1,307 +1,95 @@
 /* =====================================================================
    notfound.css — Page 404
-   Le site tient en une seule page : une 404 y est donc, par construction,
-   une adresse « hors sommaire ». La page reprend les codes du site
-   (filets fins, numérotation de section, alternance ink / paper, cadre
-   navigateur des réalisations) plutôt qu'un gros chiffre décoratif.
+   Un seul écran, centré : le code d'erreur en grand dans la typographie
+   du hero (Unbounded), une ligne, un bouton. Aucun contenu secondaire —
+   une page d'erreur n'a rien à faire lire.
    Charger APRÈS sections.css et AVANT responsive.css.
    ===================================================================== */
 
-/* --------------------------------------------------------------------- */
-/* Bloc principal — même ossature asymétrique que le hero d'accueil      */
-/* --------------------------------------------------------------------- */
+/* 404.html est la seule page à charger cette feuille : on peut donc y mettre
+   en page le document entier. La navbar garde sa hauteur propre et le bloc
+   occupe exactement ce qui reste — sans coder cette hauteur en dur, qui vaut
+   75px et non 74 une fois compté le filet sous la barre. */
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
 .nf {
   position: relative;                    /* ancre le canvas des faisceaux */
+  flex: 1;                               /* toute la hauteur restante */
   display: flex;
   align-items: center;
-  /* 74px = hauteur de la navbar. Plafonné : au-delà, la composition se
-     délite en deux blocs éloignés sur les grands écrans. */
-  min-height: min(720px, calc(100vh - 74px));
-  min-height: min(720px, calc(100dvh - 74px));
-  padding-block: clamp(56px, 8vw, 104px);
+  justify-content: center;
+  padding-block: clamp(48px, 9vw, 96px);
+  /* Contient le flou du canvas ; le contenu, lui, ne dépasse jamais :
+     min-height:auto sur un élément flex l'empêche de rétrécir sous sa
+     propre hauteur. */
   overflow: hidden;
 }
 
 /* Le fond animé est partagé avec l'accueil (js/beams.js cible .hero__beams).
-   Ici il passe en retrait : la page doit se lire, pas impressionner. */
-.nf .hero__beams { opacity: 0.5; }
+   Légèrement en retrait : assez présent pour que la page reste celle du
+   site, assez discret pour que le chiffre reste le seul point d'accroche. */
+.nf .hero__beams { opacity: 0.65; }
 
-.nf__grid {
+.nf__inner {
   position: relative;
   z-index: 1;
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-  column-gap: clamp(48px, 7vw, 104px);
-  row-gap: clamp(36px, 6vw, 56px);
-  align-items: center;
-}
-
-/* --------------------------------------------------------------------- */
-/* Colonne de gauche — texte                                             */
-/* --------------------------------------------------------------------- */
-
-/* Le code d'erreur prend la place du numéro de section : sur ce site,
-   chaque section porte un numéro, celle-ci porte 404. */
-.nf__index { margin-bottom: 26px; }
-
-.nf__title {
-  font-family: var(--font-hero);
-  font-weight: 600;
-  font-size: clamp(1.9rem, 4.6vw, 3.05rem);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  text-wrap: balance;
-  max-width: 18ch;
-}
-/* Point d'accent : même signe que la marque « Maël. » de la navbar. */
-.nf__title .nf__dot { color: var(--accent); }
-
-.nf__lead {
-  color: var(--fg);
-  font-size: clamp(1rem, 1.5vw, 1.1rem);
-  max-width: 44ch;
-  margin-top: 26px;
-}
-
-.nf__aside {
-  color: var(--muted);
-  font-size: 0.94rem;
-  max-width: 46ch;
-  margin-top: 14px;
-}
-
-/* Suggestion injectée par js/notfound.js quand l'adresse demandée
-   ressemble à l'une des sections du site. Masquée sinon. */
-.nf__hint {
-  display: none;
-  align-items: baseline;
-  gap: 0.6ch;
-  margin-top: 26px;
-  padding-left: 16px;
-  border-left: 2px solid var(--accent);
-  font-size: 0.96rem;
-  color: var(--fg);
-}
-.nf__hint.is-active { display: flex; flex-wrap: wrap; }
-.nf__hint a { position: relative; color: var(--accent); }
-
-/* Ces deux liens vivent au milieu d'une phrase : leur hauteur est celle de
-   la ligne, soit moins que les 44px recommandés au doigt. On élargit la
-   zone cliquable avec un calque transparent, sans toucher au soulignement
-   ni à la composition du texte. */
-.nf__hint a::before,
-.map__foot a::before {
-  content: "";
-  position: absolute;
-  inset: -13px -8px;
-}
-
-.nf__actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 14px;
-  margin-top: clamp(30px, 4vw, 40px);
-}
-
-/* --------------------------------------------------------------------- */
-/* Colonne de droite — le cadre navigateur des réalisations, à vide      */
-/* --------------------------------------------------------------------- */
-.nf__figure { margin: 0; }
-
-/* L'adresse demandée est du texte technique : police mono, pas de
-   troncature brutale au milieu d'un mot. */
-.nf__url {
-  min-width: 0;                          /* autorise l'ellipse quand l'URL est longue */
-  font-family: var(--font-mono);
-  letter-spacing: 0;
-  direction: ltr;
-}
-
-/* Surface vide du « navigateur ». Le rapport 16/10 diffère volontairement
-   des captures 2/1 des réalisations : ce n'est pas une capture. */
-.nf__void {
-  position: relative;
-  aspect-ratio: 16 / 10;
-  display: grid;
-  place-items: center;
-  background:
-    radial-gradient(120% 90% at 50% 0%, rgba(142, 130, 255, 0.08), transparent 62%),
-    #101014;
-}
-
-/* Deux filets en diagonale, de coin à coin : la notation de dessin
-   technique pour une surface vide.
-   Le viewBox (160x100) a exactement le rapport du cadre : l'échelle reste
-   uniforme, et `pathLength="1"` permet de tracer les traits au chargement
-   sans dépendre de leur longueur réelle. Pas de `non-scaling-stroke` ici :
-   il ferait exprimer le pointillé en pixels écran et casserait le tracé. */
-.nf__void svg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-.nf__void line {
-  stroke: rgba(255, 255, 255, 0.16);
-  stroke-width: 0.4;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  animation: nf-draw 0.75s var(--ease) 0.25s forwards;
-}
-.nf__void line:nth-child(2) { animation-delay: 0.37s; }
-
-@keyframes nf-draw { to { stroke-dashoffset: 0; } }
-
-/* Le libellé coupe les diagonales, comme une cote sur un plan. */
-.nf__void figcaption,
-.nf__void p {
-  position: relative;
-  padding: 7px 14px;
-  background: #101014;
-  color: var(--ink-muted);
-  font-size: 0.66rem;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-}
-
-/* Trace HTTP sous le cadre : une ligne par information, libellés alignés
-   en colonne comme dans un en-tête de requête. La hiérarchie se fait par
-   la casse et la graisse, pas par un contraste trop faible à lire. */
-.nf__trace {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  margin-top: 16px;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  line-height: 1.6;
-  color: rgba(237, 235, 230, 0.72);
+  align-items: center;
+  text-align: center;
 }
-.nf__trace-row { display: flex; gap: 1.2ch; }
-.nf__trace-row > span {
-  flex: none;
-  min-width: 86px;
-  color: var(--muted);
-  font-size: 0.62rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  padding-top: 0.15em;
-}
-.nf__trace-row > b { font-weight: 400; min-width: 0; word-break: break-all; }
 
 /* --------------------------------------------------------------------- */
-/* Sommaire — les quatre sections qui existent réellement                */
+/* Le code d'erreur                                                      */
 /* --------------------------------------------------------------------- */
-.map { border-top: 1px solid var(--rule); }
-
-.map__row { border-bottom: 1px solid var(--rule); }
-
-.map__link {
-  position: relative;
-  display: grid;
-  grid-template-columns: 76px minmax(0, 1fr) 40px;
-  align-items: baseline;
-  gap: 0 20px;
-  /* Retrait à gauche sur toutes les lignes : il réserve la place du repère
-     d'accent de la ligne suggérée, qui viendrait sinon mordre sur le
-     numéro. Les numéros restent alignés d'une ligne à l'autre. */
-  padding: 26px 0 26px 16px;
-  min-height: 64px;                      /* confort tactile */
+.nf__title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(14px, 2vw, 22px);
 }
 
-/* Filet d'accent qui se déploie sous la ligne survolée — même geste que
-   les liens .link-arrow du site. */
-.map__link::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -1px;
-  width: 100%;
-  height: 1px;
-  background: var(--accent);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.45s var(--ease);
-}
-.map__row--live .map__link:hover::after,
-.map__row--live .map__link:focus-visible::after { transform: scaleX(1); }
-
-.map__num {
-  font-family: var(--font-display);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.22em;
-  color: var(--accent);
-  padding-top: 7px;
+.nf__code {
+  font-family: var(--font-hero);
+  font-weight: 600;
+  font-size: clamp(5.5rem, 21vw, 13rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  /* Compensation optique : le letter-spacing s'applique aussi après le
+     dernier signe et décalerait le bloc vers la gauche. */
+  margin-right: -0.03em;
 }
 
-.map__title {
-  display: block;
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(1.25rem, 2.4vw, 1.7rem);
-  line-height: 1.15;
-}
-.map__desc {
-  display: block;
-  margin-top: 6px;
-  color: var(--muted);
-  font-size: 0.94rem;
-  max-width: 52ch;
-}
-
-.map__arrow {
-  justify-self: end;
-  color: var(--muted);
-  font-size: 1.05rem;
-  transition: transform 0.35s var(--ease), color 0.25s var(--ease);
-}
-.map__row--live .map__link:hover .map__arrow,
-.map__row--live .map__link:focus-visible .map__arrow {
-  transform: translateX(5px);
+/* Point d'accent : même signe que la marque « Maël. » de la navbar.
+   Réduit, car à cette taille le point d'Unbounded devient un disque qui
+   prend le pas sur le chiffre. Il reste posé sur la ligne de base. */
+.nf__dot {
+  font-size: 0.4em;
   color: var(--accent);
 }
 
-/* Section probablement recherchée : un repère d'accent et une pastille,
-   rien de plus. Le filet du survol reste réservé au survol, et la ligne
-   n'est pas décalée — les numéros doivent rester alignés d'une ligne à
-   l'autre. */
-.map__row.is-suggested { box-shadow: inset 3px 0 0 var(--accent); }
-
-.map__tag {
-  display: inline-block;
-  margin-left: 10px;
-  flex: none;
-  padding: 3px 9px;
-  border: 1px solid var(--accent);
-  border-radius: 999px;
-  color: var(--accent);
+.nf__label {
   font-family: var(--font-body);
-  font-size: 0.64rem;
+  font-size: clamp(0.72rem, 1.4vw, 0.84rem);
   font-weight: 500;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
-  vertical-align: 0.24em;
-  white-space: nowrap;
+  color: var(--muted);
 }
 
-/* Dernière ligne : celle qui a été demandée. Filet en pointillés parce
-   que la ligne ne mène nulle part, et pas de flèche. */
-.map__row--void { border-bottom-style: dashed; }
-.map__row--void .map__link { cursor: default; }
-.map__row--void .map__num { color: var(--muted); }
-.map__row--void .map__title {
-  font-family: var(--font-mono);
-  font-size: clamp(0.92rem, 1.7vw, 1.08rem);
+/* Même retrait que le .hero__lead de l'accueil : le chiffre porte seul
+   l'accroche, la phrase l'explique sans lui disputer l'attention. */
+.nf__lead {
+  margin-top: clamp(24px, 3.2vw, 32px);
+  max-width: 46ch;
   color: var(--muted);
-  word-break: break-all;
+  font-size: clamp(1rem, 1.5vw, 1.1rem);
+  text-wrap: balance;
 }
 
-.map__foot {
-  margin-top: clamp(32px, 4vw, 44px);
-  color: var(--muted);
-  font-size: 0.94rem;
-}
-.map__foot a { position: relative; color: var(--accent); }
-.map__foot a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.nf__action { margin-top: clamp(30px, 4vw, 42px); }
