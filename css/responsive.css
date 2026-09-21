@@ -110,6 +110,25 @@
   .contact__mail { font-size: 1.2rem; margin-top: 24px; }
 }
 
+/* 404 : le cadre navigateur passe sous le texte ------------------------ */
+@media (max-width: 900px) {
+  .nf { min-height: 0; align-items: flex-start; }
+  .nf__grid { grid-template-columns: 1fr; align-items: start; }
+  .nf__figure { max-width: 520px; width: 100%; }
+  .nf__title { max-width: 24ch; }
+}
+
+/* 404 : sommaire resserré — la colonne des numéros n'a plus à être large */
+@media (max-width: 560px) {
+  .map__link {
+    grid-template-columns: 42px minmax(0, 1fr) 22px;
+    gap: 0 14px;
+    padding: 22px 0 22px 13px;
+  }
+  .map__num { padding-top: 5px; }
+  .map__tag { margin: 8px 0 0; vertical-align: baseline; }
+}
+
 /* Mouvement réduit ----------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -118,6 +137,10 @@
     transition-duration: 0.01ms !important;
   }
   .reveal { opacity: 1; transform: none; }
+
+  /* 404 : les deux diagonales du cadre vide sont tracées d'un trait plutôt
+     que dessinées progressivement. */
+  .nf__void line { animation: none !important; stroke-dashoffset: 0; }
 
   /* Le faisceau du bouton secondaire tourne en continu : sans cela la durée
      d'animation écrasée ci-dessus le ferait stroboscoper. On revient à la
